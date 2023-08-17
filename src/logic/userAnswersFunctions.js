@@ -1,4 +1,8 @@
 // ojo
+export const checkIfTheAttempIsFull = ({arr, index}) => {
+  return arr[index].every((value) => value !== null)
+}
+
 export const findCurrentAttemptIndex = (arr = []) => {
     let index
     for (let i = 0; i < arr.length; i++) {

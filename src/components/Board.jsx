@@ -1,17 +1,8 @@
-import { useState } from 'react'
-import {
-  findCurrentAttemptIndex,
-  findFirstEmptyField,
-} from '../logic/userAnswersFunctions'
+import { useBoardLogic } from './hook/useBoardLogic'
 
 export function Board() {
-  const [answers, setAnswers] = useState([
-    [null, null, null, null, null, null],
-    [null, null, null, null, null, null],
-    [null, null, null, null, null, null],
-    [null, null, null, null, null, null],
-    [null, null, null, null, null, null],
-  ])
+  const { answers } = useBoardLogic()
+
   return (
     <main className="flex justify-center">
       <section className="h-96 flex flex-col items-center gap-4 mt-10">
@@ -31,21 +22,6 @@ export function Board() {
             </article>
           )
         })}
-        <input
-          type="text"
-          onChange={(e) => {
-            const answersCopy = [...answers]
-            const currentTry = findCurrentAttemptIndex(answersCopy)
-            const nextField = findFirstEmptyField({
-              arr: answersCopy,
-              index: currentTry,
-            })
-            answersCopy[currentTry][nextField] =
-              e.target.value.split('')[nextField]
-            console.log({ answersCopy, currentTry, nextField })
-            setAnswers(answersCopy)
-          }}
-        />
       </section>
     </main>
   )
