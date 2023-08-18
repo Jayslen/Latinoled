@@ -1,25 +1,41 @@
-export const checkIfTheAttempIsCompleted = ({arr, index}) => {
+import {
+  IS_INCLUDED,
+  IS_NOT_INCLUDED,
+  IS_SAME_POSITION,
+} from '../const/positionsIndex'
+
+export const checkIfTheAttempIsCompleted = ({ arr, index }) => {
   return arr[index].every((value) => value !== null)
 }
 
-export const findCurrentAttemptIndex = (arr = []) => {
-    let index
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i].some((value) => value === null)) {
-        index = i
-        return index
-      }
+export const checkForWin = ({ wordToGuess, userWord }) => {
+  return wordToGuess.toLowerCase() === userWord.toLowerCase()
+}
+
+// check what letters the word includes
+export const findLettersPositions = ({ wordToGuess, userWord }) => {
+  const data = []
+  const transition = 100
+  for (let i = 0; i < wordToGuess.length; i++) {
+    if (userWord[i] === wordToGuess[i]) {
+      data.push({
+        letter: userWord[i],
+        status: IS_SAME_POSITION,
+        transition,
+      })
+    } else if (!wordToGuess.includes(userWord[i])) {
+      data.push({
+        letter: userWord[i],
+        status: IS_NOT_INCLUDED,
+        transition,
+      })
+    } else {
+      data.push({
+        letter: userWord[i],
+        status: IS_INCLUDED,
+        transition,
+      })
     }
   }
-
-  export const findFirstEmptyField = ({ index, arr = [] }) => {
-    for (let i = 0; i <= arr.length; i++) {
-      if (arr[index][i] === null) {
-        return i
-      }
-    }
-  }
-
-  export const checkForWin = ({wordToGuess, userWord}) => {
-   return wordToGuess.toLowerCase() === userWord.toLowerCase()
-  }
+  return data
+}
