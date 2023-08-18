@@ -1,34 +1,39 @@
+import {
+  IS_INCLUDED,
+  IS_NOT_INCLUDED,
+  IS_SAME_POSITION,
+} from '../const/positionsIndex'
 import { useBoardLogic } from '../hook/useBoardLogic'
 
 export function Board() {
-  const { answers, lettersSamePosition, wordToGuess } = useBoardLogic()
+  const { answers, lettersPosition } = useBoardLogic()
 
   return (
     <main className="flex justify-center">
-      <section className="h-96 flex flex-col items-center gap-4 mt-10">
+      <section className="h-96 w-[350px] flex flex-col items-center gap-2 mt-10">
         {answers.map((rows, indexRow) => {
-          const attempRows = lettersSamePosition[indexRow]
+          const attempRows = lettersPosition[indexRow]
           return (
             <article
               key={indexRow}
-              className="grid grid-cols-6 gap-2 w-96 h-96"
+              className="grid grid-cols-5 gap-2 w-full h-full"
             >
               {rows.map((data, index) => {
                 const eachLetter = attempRows ? attempRows[index] : []
-                // const letter = eachLetter?.letter
-                // const row = eachLetter?.row
-                // const status = eachLetter?.status
-                // const transition = eachLetter?.transition
-                const { row, status, transition } = eachLetter
+                const { status, transition } = eachLetter
                 return (
                   <div
                     key={index}
-                    className={`bg-[#ffffff60] h-full w-full rounded-md border flex justify-center items-center font-bold text-4xl uppercase ${
-                      eachLetter.length === 0
-                        ? ''
-                        : wordToGuess.split('')[index] === answers[row][index]
-                        ? `bg-green-400 transition-colors animate-rotate-x animate-delay-[${transition}ms]`
-                        : ''
+                    className={`bg-[#ffffff60] text-white w-full h-full border-2 border-[#3a3a3c] flex justify-center items-center font-bold text-2xl uppercase rounded-lg ${
+                      eachLetter.length !== 0
+                        ? status === IS_SAME_POSITION
+                          ? `bg-[#538d4e] animate-rotate-x animate-duration-[${transition}ms] border-0`
+                          : status === IS_INCLUDED
+                          ? `bg-[#b59f3b] animate-rotate-x animate-duration-[${transition}ms] border-0`
+                          : status === IS_NOT_INCLUDED
+                          ? `bg-[#3a3a3c] animate-rotate-x animate-duration-[${transition}ms] border-0`
+                          : ''
+                        : null
                     }`}
                   >
                     {data}
