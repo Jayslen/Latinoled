@@ -1,4 +1,4 @@
-import { useBoardLogic } from './hook/useBoardLogic'
+import { useBoardLogic } from '../hook/useBoardLogic'
 
 export function Board() {
   const { answers } = useBoardLogic()

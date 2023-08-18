@@ -1,5 +1,4 @@
-// ojo
-export const checkIfTheAttempIsFull = ({arr, index}) => {
+export const checkIfTheAttempIsCompleted = ({arr, index}) => {
   return arr[index].every((value) => value !== null)
 }
 
@@ -19,4 +18,8 @@ export const findCurrentAttemptIndex = (arr = []) => {
         return i
       }
     }
+  }
+
+  export const checkForWin = ({wordToGuess, userWord}) => {
+   return wordToGuess.toLowerCase() === userWord.toLowerCase()
   }
