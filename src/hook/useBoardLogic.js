@@ -61,7 +61,6 @@ export function useBoardLogic() {
           userWord: answers[currentAtttempt],
         }),
       ])
-
       return
     }
 
