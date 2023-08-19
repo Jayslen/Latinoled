@@ -10,7 +10,7 @@ export function useBoardLogic() {
     .fill(null)
     .map(() => Array(5).fill(null))
   const [answers, setAnswers] = useState(initialAnswers)
-  const [wordToGuess] = useState('guagua')
+  const [wordToGuess] = useState('paila')
   const [lettersPosition, setlettersPosition] = useState([])
   const [currentAtttempt, setCurrentAtttempt] = useState(0)
   const [nextField, setNextField] = useState(0)
@@ -32,7 +32,7 @@ export function useBoardLogic() {
     })
     const isWinner = checkForWin({
       userWord: answersCopy[currentAtttempt].join(''),
-      wordToGuess: 'guagua',
+      wordToGuess,
     })
 
     // check for lost game
@@ -56,6 +56,7 @@ export function useBoardLogic() {
 
       setlettersPosition((prev) => [
         ...prev,
+
         findLettersPositions({
           wordToGuess: wordToGuess.split(''),
           userWord: answers[currentAtttempt],
