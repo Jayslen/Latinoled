@@ -24,14 +24,14 @@ export function Board() {
                 return (
                   <div
                     key={index}
-                    className={`bg-[#ffffff60] text-white w-full h-full border-2 border-[#3a3a3c] flex justify-center items-center font-bold text-2xl uppercase rounded-lg ${
+                    className={`bg-[#ffffff60] text-white w-full h-full border-[#3a3a3c] flex justify-center items-center font-bold text-2xl uppercase rounded-md ${
                       eachLetter.length !== 0
                         ? status === IS_SAME_POSITION
-                          ? `bg-[#538d4e] animate-rotate-x animate-duration-[${transition}ms] border-0`
+                          ? `bg-[rgb(83,141,78)] animate-rotate-x animate-duration-[${transition}ms]`
                           : status === IS_INCLUDED
-                          ? `bg-[#b59f3b] animate-rotate-x animate-duration-[${transition}ms] border-0`
+                          ? `bg-[rgb(181,159,59)] animate-rotate-x animate-duration-[${transition}ms]`
                           : status === IS_NOT_INCLUDED
-                          ? `bg-[#3a3a3c] animate-rotate-x animate-duration-[${transition}ms] border-0`
+                          ? `bg-[rgb(58,58,60)] animate-rotate-x animate-duration-[${transition}ms]`
                           : ''
                         : null
                     }`}
