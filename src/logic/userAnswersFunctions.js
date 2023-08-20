@@ -2,7 +2,7 @@ import {
   IS_INCLUDED,
   IS_NOT_INCLUDED,
   IS_SAME_POSITION,
-} from '../const/positionsIndex'
+} from '../constants/positionsIndex'
 
 export const checkIfTheAttempIsCompleted = ({ arr, index }) => {
   return arr[index].every((value) => value !== null)
@@ -15,7 +15,7 @@ export const checkForWin = ({ wordToGuess, userWord }) => {
 // check what letters the word includes
 export const findLettersPositions = ({ wordToGuess, userWord }) => {
   const data = []
-  const transition = 100
+  let transition = 250
   for (let i = 0; i < wordToGuess.length; i++) {
     if (userWord[i] === wordToGuess[i]) {
       data.push({
@@ -36,6 +36,7 @@ export const findLettersPositions = ({ wordToGuess, userWord }) => {
         transition,
       })
     }
+    transition += 100
   }
   return data
 }

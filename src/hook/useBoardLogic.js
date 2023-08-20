@@ -44,9 +44,14 @@ export function useBoardLogic() {
 
     // check for winner
     if (e.keyCode === 13 && isWinner) {
-      alert('win')
-      resestAttempt()
-      return
+      findLettersPositions({
+        wordToGuess: wordToGuess.split(''),
+        userWord: answers[currentAtttempt],
+      })
+      setTimeout(() => {
+        alert('win')
+        resestAttempt()
+      }, 400)
     }
 
     // finish one attepm
