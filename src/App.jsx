@@ -1,10 +1,14 @@
 import { Board } from './components/Board'
 import { Header } from './components/Header'
+import { Keyboard } from './components/Keyboard'
 function App() {
   return (
     <>
       <Header />
-      <Board />
+      <main className="flex flex-col items-center">
+        <Board />
+        <Keyboard />
+      </main>
     </>
   )
 }
