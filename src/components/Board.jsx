@@ -1,11 +1,11 @@
 import {
   IS_INCLUDED,
   IS_NOT_INCLUDED,
-  IS_SAME_POSITION,
+  IS_SAME_POSITION
 } from '../constants/positionsIndex'
 import { useBoardLogic } from '../hook/useBoardLogic'
 
-export function Board() {
+export function Board () {
   const { answers, lettersPosition } = useBoardLogic()
 
   return (
@@ -26,11 +26,11 @@ export function Board() {
                   className={`bg-[#ffffff60] text-white w-full h-full border-[#3a3a3c] flex justify-center items-center font-bold text-2xl uppercase rounded-md border-2  ${`animate-delay-[${transition}ms]`} ${
                     eachLetter.length !== 0
                       ? status === IS_SAME_POSITION
-                        ? `bg-[rgb(83,141,78)] animate-rotate-x border-0 border-transparent`
+                        ? 'bg-[rgb(83,141,78)] animate-rotate-x border-0 border-transparent'
                         : status === IS_INCLUDED
-                        ? `bg-[rgb(181,159,59)] animate-rotate-x border-0 border-transparent`
+                        ? 'bg-[rgb(181,159,59)] animate-rotate-x border-0 border-transparent'
                         : status === IS_NOT_INCLUDED
-                        ? `bg-[rgb(58,58,60)] animate-rotate-x border-transparent`
+                        ? 'bg-[rgb(58,58,60)] animate-rotate-x border-transparent'
                         : null
                       : 'bg-transparent'
                   }`}

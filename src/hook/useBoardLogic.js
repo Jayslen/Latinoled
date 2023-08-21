@@ -2,41 +2,39 @@ import { useEffect, useState } from 'react'
 import {
   checkForWin,
   checkIfTheAttempIsCompleted,
-  findLettersPositions,
+  findLettersPositions
 } from '../logic/userAnswersFunctions'
 
-export function useBoardLogic() {
+export function useBoardLogic () {
   const initialAnswers = Array(5)
     .fill(null)
     .map(() => Array(5).fill(null))
   const [answers, setAnswers] = useState(initialAnswers)
   const [wordToGuess] = useState('paila')
   const [lettersPosition, setlettersPosition] = useState([])
-  const [currentAtttempt, setCurrentAtttempt] = useState(0)
+  const [currentAttempt, setCurrentAtttempt] = useState(0)
   const [nextField, setNextField] = useState(0)
-  const [gameReset, setGameReset] = useState(false)
 
   const resestAttempt = () => {
     setAnswers(initialAnswers)
     setNextField(0)
     setCurrentAtttempt(0)
     setlettersPosition([])
-    setGameReset(!gameReset)
   }
 
   const handleKeyPress = (e) => {
     const answersCopy = [...answers]
     const isCompleted = checkIfTheAttempIsCompleted({
       arr: answersCopy,
-      index: currentAtttempt,
+      index: currentAttempt
     })
     const isWinner = checkForWin({
-      userWord: answersCopy[currentAtttempt].join(''),
-      wordToGuess,
+      userWord: answersCopy[currentAttempt].join(''),
+      wordToGuess
     })
 
     // check for lost game
-    if (currentAtttempt === 4 && isCompleted && e.keyCode === 13) {
+    if (currentAttempt === 4 && isCompleted && e.keyCode === 13) {
       alert('end game')
       resestAttempt()
       return
@@ -46,7 +44,7 @@ export function useBoardLogic() {
     if (e.keyCode === 13 && isWinner) {
       findLettersPositions({
         wordToGuess: wordToGuess.split(''),
-        userWord: answers[currentAtttempt],
+        userWord: answers[currentAttempt]
       })
       setTimeout(() => {
         alert('win')
@@ -64,8 +62,8 @@ export function useBoardLogic() {
 
         findLettersPositions({
           wordToGuess: wordToGuess.split(''),
-          userWord: answers[currentAtttempt],
-        }),
+          userWord: answers[currentAttempt]
+        })
       ])
       return
     }
@@ -75,14 +73,16 @@ export function useBoardLogic() {
       /\W/gi.test(e.key) ||
       /\d/.test(e.key) ||
       e.keyCode === 13
-    )
-      return
+    ) return
 
-    answersCopy[currentAtttempt][nextField] = e.key
+    answersCopy[currentAttempt][nextField] = e.key
     setAnswers(answersCopy)
     setNextField((prev) => ++prev)
   }
 
+  const handleVirtualKeyboardKeyPress = (e) => {
+    console.log(e.target.textContent)
+  }
   useEffect(() => {
     window.document.body.addEventListener('keypress', handleKeyPress)
 
@@ -90,5 +90,5 @@ export function useBoardLogic() {
       window.document.body.removeEventListener('keypress', handleKeyPress)
   })
 
-  return { answers, lettersPosition, wordToGuess }
+  return { answers, lettersPosition, handleVirtualKeyboardKeyPress }
 }
