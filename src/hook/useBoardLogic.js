@@ -1,18 +1,19 @@
 import { useEffect, useState, useContext } from 'react'
+import { UserAnswersContext } from '../context/userAnswersContext'
+import { GameData } from '../context/gameDataContext'
+import { RESET_ATTEMPT, RESET_NEXT_FIELD, UPDATE_ATTEMPT, UPDATE_FIELD } from '../constants/reducerTypes'
 import {
   checkForWin,
   checkIfTheAttempIsCompleted,
   findLettersPositions
 } from '../logic/userAnswersFunctions'
-import { GameData } from '../components/context/gameDataContext'
-import { RESET_ATTEMPT, RESET_NEXT_FIELD, UPDATE_ATTEMPT, UPDATE_FIELD } from '../constants/reducerTypes'
 
 const initialAnswers = Array(5)
   .fill(null)
   .map(() => Array(5).fill(null))
 
 export function useBoardLogic () {
-  const [answers, setAnswers] = useState(initialAnswers)
+  const { answers, setAnswers } = useContext(UserAnswersContext)
   const { state, dispatch } = useContext(GameData)
   const { nextField, wordToGuess, currentAttempt } = state
   const [lettersPosition, setlettersPosition] = useState([])
@@ -21,7 +22,6 @@ export function useBoardLogic () {
     setAnswers(initialAnswers)
     dispatch({ type: RESET_NEXT_FIELD })
     dispatch({ type: RESET_ATTEMPT })
-
     setlettersPosition([])
   }
 

@@ -1,5 +1,5 @@
 import { createContext, useReducer } from 'react'
-import { UPDATE_FIELD, RESET_ATTEMPT, RESET_NEXT_FIELD, UPDATE_ATTEMPT } from '../../constants/reducerTypes'
+import { UPDATE_FIELD, RESET_ATTEMPT, RESET_NEXT_FIELD, UPDATE_ATTEMPT } from '../constants/reducerTypes'
 
 export const GameData = createContext()
 const initialState = {
