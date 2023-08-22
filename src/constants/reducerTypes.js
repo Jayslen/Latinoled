@@ -1,0 +1,4 @@
+export const RESET_ATTEMPT = 'RESET ATTEMPT'
+export const RESET_NEXT_FIELD = 'RESET FIELD'
+export const UPDATE_ATTEMPT = 'UPDATE ATTEMPT'
+export const UPDATE_FIELD = 'UPDATE FIELD'

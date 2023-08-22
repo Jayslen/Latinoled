@@ -1,24 +1,27 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import {
   checkForWin,
   checkIfTheAttempIsCompleted,
   findLettersPositions
 } from '../logic/userAnswersFunctions'
+import { GameData } from '../components/context/gameDataContext'
+import { RESET_ATTEMPT, RESET_NEXT_FIELD, UPDATE_ATTEMPT, UPDATE_FIELD } from '../constants/reducerTypes'
+
+const initialAnswers = Array(5)
+  .fill(null)
+  .map(() => Array(5).fill(null))
 
 export function useBoardLogic () {
-  const initialAnswers = Array(5)
-    .fill(null)
-    .map(() => Array(5).fill(null))
   const [answers, setAnswers] = useState(initialAnswers)
-  const [wordToGuess] = useState('paila')
+  const { state, dispatch } = useContext(GameData)
+  const { nextField, wordToGuess, currentAttempt } = state
   const [lettersPosition, setlettersPosition] = useState([])
-  const [currentAttempt, setCurrentAtttempt] = useState(0)
-  const [nextField, setNextField] = useState(0)
 
   const resestAttempt = () => {
     setAnswers(initialAnswers)
-    setNextField(0)
-    setCurrentAtttempt(0)
+    dispatch({ type: RESET_NEXT_FIELD })
+    dispatch({ type: RESET_ATTEMPT })
+
     setlettersPosition([])
   }
 
@@ -54,8 +57,8 @@ export function useBoardLogic () {
 
     // finish one attepm
     if (e.keyCode === 13 && isCompleted) {
-      setNextField(0)
-      setCurrentAtttempt((prev) => ++prev)
+      dispatch({ type: RESET_NEXT_FIELD })
+      dispatch({ type: UPDATE_ATTEMPT })
 
       setlettersPosition((prev) => [
         ...prev,
@@ -77,7 +80,7 @@ export function useBoardLogic () {
 
     answersCopy[currentAttempt][nextField] = e.key
     setAnswers(answersCopy)
-    setNextField((prev) => ++prev)
+    dispatch({ type: UPDATE_FIELD })
   }
 
   const handleVirtualKeyboardKeyPress = (e) => {
