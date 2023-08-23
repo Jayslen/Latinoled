@@ -24,14 +24,8 @@ export function useBoardLogic () {
 
   const handleKeyPress = (e) => {
     const answersCopy = [...answers]
-    const isCompleted = checkIfTheAttempIsCompleted({
-      arr: answersCopy,
-      index: currentAttempt
-    })
-    const isWinner = checkForWin({
-      userWord: answersCopy[currentAttempt].join(''),
-      wordToGuess
-    })
+    const isCompleted = checkIfTheAttempIsCompleted({ arr: answersCopy, index: currentAttempt })
+    const isWinner = checkForWin({ userWord: answersCopy[currentAttempt].join(''), wordToGuess })
 
     // check for lost game
     if (currentAttempt === 4 && isCompleted && e.keyCode === 13) {
@@ -68,12 +62,11 @@ export function useBoardLogic () {
       return
     }
 
-    // delete letter
-    // !OJO REVISAR
+    // delete last field
     if (e.keyCode === 8) {
-      answersCopy[currentAttempt][currentField] = null
-      dispatch({ type: GO_ONE_FIELD_BACK })
+      answersCopy[currentAttempt][currentField - 1] = null
       setAnswers(answersCopy)
+      if (currentField !== 0) dispatch({ type: GO_ONE_FIELD_BACK })
     }
 
     if (
@@ -84,7 +77,6 @@ export function useBoardLogic () {
       (e.key.length > 1)
     ) return
 
-    console.log('ggg')
     answersCopy[currentAttempt][currentField] = e.key
     setAnswers(answersCopy)
     dispatch({ type: UPDATE_FIELD })
