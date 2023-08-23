@@ -1,11 +1,11 @@
 import { createContext, useReducer } from 'react'
-import { UPDATE_FIELD, RESET_ATTEMPT, RESET_NEXT_FIELD, UPDATE_ATTEMPT } from '../constants/reducerTypes'
+import { UPDATE_FIELD, RESET_ATTEMPT, RESET_NEXT_FIELD, UPDATE_ATTEMPT, GO_ONE_FIELD_BACK } from '../constants/reducerTypes'
 
 export const GameData = createContext()
 const initialState = {
   wordToGuess: 'paila',
   currentAttempt: 0,
-  nextField: 0
+  currentField: 0
 }
 
 function reducer (state, action) {
@@ -20,7 +20,7 @@ function reducer (state, action) {
   if (type === UPDATE_FIELD) {
     return {
       ...state,
-      nextField: state.nextField + 1
+      currentField: state.currentField + 1
     }
   }
 
@@ -34,7 +34,13 @@ function reducer (state, action) {
   if (type === RESET_NEXT_FIELD) {
     return {
       ...state,
-      nextField: 0
+      currentField: 0
+    }
+  }
+  if (type === GO_ONE_FIELD_BACK) {
+    return {
+      ...state,
+      currentField: state.currentField - 1
     }
   }
 }

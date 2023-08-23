@@ -1,25 +1,22 @@
 import { useEffect, useState, useContext } from 'react'
 import { UserAnswersContext } from '../context/userAnswersContext'
 import { GameData } from '../context/gameDataContext'
-import { RESET_ATTEMPT, RESET_NEXT_FIELD, UPDATE_ATTEMPT, UPDATE_FIELD } from '../constants/reducerTypes'
+import { GO_ONE_FIELD_BACK, RESET_ATTEMPT, RESET_NEXT_FIELD, UPDATE_ATTEMPT, UPDATE_FIELD } from '../constants/reducerTypes'
 import {
   checkForWin,
   checkIfTheAttempIsCompleted,
   findLettersPositions
 } from '../logic/userAnswersFunctions'
-
-const initialAnswers = Array(5)
-  .fill(null)
-  .map(() => Array(5).fill(null))
+import { initialAnswers } from '../constants/initialStates'
 
 export function useBoardLogic () {
   const { answers, setAnswers } = useContext(UserAnswersContext)
   const { state, dispatch } = useContext(GameData)
-  const { nextField, wordToGuess, currentAttempt } = state
+  const { currentField, wordToGuess, currentAttempt } = state
   const [lettersPosition, setlettersPosition] = useState([])
 
   const resestAttempt = () => {
-    setAnswers(initialAnswers)
+    setAnswers(initialAnswers())
     dispatch({ type: RESET_NEXT_FIELD })
     dispatch({ type: RESET_ATTEMPT })
     setlettersPosition([])
@@ -71,27 +68,33 @@ export function useBoardLogic () {
       return
     }
 
+    // delete letter
+    // !OJO REVISAR
+    if (e.keyCode === 8) {
+      answersCopy[currentAttempt][currentField] = null
+      dispatch({ type: GO_ONE_FIELD_BACK })
+      setAnswers(answersCopy)
+    }
+
     if (
       isCompleted ||
       /\W/gi.test(e.key) ||
       /\d/.test(e.key) ||
-      e.keyCode === 13
+      e.keyCode === 13 ||
+      (e.key.length > 1)
     ) return
 
-    answersCopy[currentAttempt][nextField] = e.key
+    console.log('ggg')
+    answersCopy[currentAttempt][currentField] = e.key
     setAnswers(answersCopy)
     dispatch({ type: UPDATE_FIELD })
   }
-
-  const handleVirtualKeyboardKeyPress = (e) => {
-    console.log(e.target.textContent)
-  }
   useEffect(() => {
-    window.document.body.addEventListener('keypress', handleKeyPress)
+    window.document.body.addEventListener('keydown', handleKeyPress)
 
     return () =>
-      window.document.body.removeEventListener('keypress', handleKeyPress)
+      window.document.body.removeEventListener('keydown', handleKeyPress)
   })
 
-  return { answers, lettersPosition, handleVirtualKeyboardKeyPress }
+  return { answers, lettersPosition }
 }
