@@ -19,11 +19,11 @@ export function Board () {
           >
             {rows.map((data, index) => {
               const eachLetter = attempRows ? attempRows[index] : []
-              const { status, transition } = eachLetter
+              const { status, delay } = eachLetter
               return (
                 <div
                   key={index}
-                  className={`bg-[#ffffff60] text-white w-full h-full border-[#3a3a3c] flex justify-center items-center font-bold text-2xl uppercase rounded-md border-2  ${`animate-delay-[${transition}ms]`} ${
+                  className={`bg-[#ffffff60] text-white w-full h-full border-[#3a3a3c] flex justify-center items-center font-bold text-2xl uppercase rounded-md border-2 animate-delay-[${delay}ms] animate-duration-[1000ms] transition-all duration-500 delay-500 ${
                     eachLetter.length !== 0
                       ? status === IS_SAME_POSITION
                         ? 'bg-[rgb(83,141,78)] animate-rotate-x border-0 border-transparent'
