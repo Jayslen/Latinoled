@@ -8,6 +8,7 @@ import {
   findLettersPositions
 } from '../logic/userAnswersFunctions'
 import { initialAnswers } from '../constants/initialStates'
+import { getNewWord } from '../services/getNewWord'
 
 export function useBoardLogic () {
   const { answers, setAnswers } = useContext(UserAnswersContext)
@@ -81,12 +82,17 @@ export function useBoardLogic () {
     setAnswers(answersCopy)
     dispatch({ type: UPDATE_FIELD })
   }
+
   useEffect(() => {
     window.document.body.addEventListener('keydown', handleKeyPress)
 
     return () =>
       window.document.body.removeEventListener('keydown', handleKeyPress)
   })
+
+  useEffect(() => {
+    console.log('hale')
+  }, [resestAttempt])
 
   return { answers, lettersPosition }
 }
