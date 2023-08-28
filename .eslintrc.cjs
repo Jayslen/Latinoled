@@ -3,23 +3,17 @@ module.exports = {
     browser: true,
     es2021: true
   },
-  extends: ['standard', 'plugin:react/recommended'],
-  overrides: [
-    {
-      env: {
-        node: true
-      },
-      files: ['.eslintrc.{js,cjs}'],
-      parserOptions: {
-        sourceType: 'script'
-      }
-    }
+  extends: [
+    'standard',
+    'plugin:react/recommended'
   ],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module'
   },
-  plugins: ['react'],
+  plugins: [
+    'react'
+  ],
   rules: {
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
