@@ -12,7 +12,7 @@ function App () {
         <GameDataProvider>
           <UserAnswerProvider>
             <Board />
-            <Keyboard />
+            {/* <Keyboard /> */}
           </UserAnswerProvider>
         </GameDataProvider>
 

@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react'
+import { useEffect, useState, useContext, useRef } from 'react'
 import { UserAnswersContext } from '../context/userAnswersContext'
 import { GameData } from '../context/gameDataContext'
 import { GO_ONE_FIELD_BACK, RESET_ATTEMPT, RESET_NEXT_FIELD, UPDATE_ATTEMPT, UPDATE_FIELD } from '../constants/reducerTypes'
@@ -8,36 +8,42 @@ import {
   findLettersPositions
 } from '../logic/userAnswersFunctions'
 import { initialAnswers } from '../constants/initialStates'
-// import { getNewWord } from '../services/getNewWord'
+import { getNewWord } from '../services/getNewWord'
 
 export function useBoardLogic () {
   const { answers, setAnswers } = useContext(UserAnswersContext)
   const { state, dispatch } = useContext(GameData)
   const { currentField, wordToGuess, currentAttempt } = state
   const [lettersPosition, setlettersPosition] = useState([])
-  const [finishTry, setFinishTry] = useState(false)
+  const [generateNewWord, setGenerateNewWord] = useState(false)
+  const [openModal, setOpenModal] = useState(false)
+  const isFirstRender = useRef(true)
 
   const resetAttempt = () => {
     setAnswers(initialAnswers())
     dispatch({ type: RESET_NEXT_FIELD })
     dispatch({ type: RESET_ATTEMPT })
     setlettersPosition([])
+    setOpenModal(false)
+    setGenerateNewWord(true)
+    setTimeout(() => {
+      setGenerateNewWord(false)
+    }, 600)
   }
 
   const handleKeyPress = (e) => {
     const answersCopy = [...answers]
     const isCompleted = checkIfTheAttempIsCompleted({ arr: answersCopy, index: currentAttempt })
     const isWinner = checkForWin({ userWord: answersCopy[currentAttempt].join(''), wordToGuess })
-    const LAST_ANSWERS_INDEX = answers.length - 1
+    // const LAST_ANSWERS_INDEX = answers.length - 1
 
-    if (isWinner || answersCopy[LAST_ANSWERS_INDEX].every(value => value !== null)) {
-      setFinishTry(true)
-    }
+    // if (isWinner || answersCopy[LAST_ANSWERS_INDEX].every(value => value !== null)) {
+    //   setFinishTry(true)
+    // }
 
     // check for lost game
     if (currentAttempt === 4 && isCompleted && e.keyCode === 13) {
-      alert('end game')
-      resetAttempt()
+      setOpenModal(true)
       return
     }
 
@@ -48,9 +54,8 @@ export function useBoardLogic () {
         userWord: answers[currentAttempt]
       })
       setTimeout(() => {
-        alert('win')
-        resetAttempt()
-      }, 400)
+        setOpenModal(true)
+      }, 700)
     }
 
     // finish one attepm
@@ -97,9 +102,13 @@ export function useBoardLogic () {
   })
 
   useEffect(() => {
-    if (finishTry) {
-      console.log('new letter')
+    if (isFirstRender.current || generateNewWord) {
+      const newWord = getNewWord()
+      localStorage.setItem('words-played-by-user', JSON.stringify(newWord))
+      console.log(newWord)
+      isFirstRender.current = false
     }
-  }, [finishTry])
-  return { answers, lettersPosition }
+  }, [generateNewWord])
+
+  return { answers, lettersPosition, openModal, resetAttempt }
 }
