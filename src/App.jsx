@@ -14,7 +14,6 @@ function App () {
             <Board />
             <Keyboard />
           </UserAnswerProvider>
-
         </GameDataProvider>
 
       </main>
