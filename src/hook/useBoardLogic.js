@@ -8,15 +8,16 @@ import {
   findLettersPositions
 } from '../logic/userAnswersFunctions'
 import { initialAnswers } from '../constants/initialStates'
-import { getNewWord } from '../services/getNewWord'
+// import { getNewWord } from '../services/getNewWord'
 
 export function useBoardLogic () {
   const { answers, setAnswers } = useContext(UserAnswersContext)
   const { state, dispatch } = useContext(GameData)
   const { currentField, wordToGuess, currentAttempt } = state
   const [lettersPosition, setlettersPosition] = useState([])
+  const [finishTry, setFinishTry] = useState(false)
 
-  const resestAttempt = () => {
+  const resetAttempt = () => {
     setAnswers(initialAnswers())
     dispatch({ type: RESET_NEXT_FIELD })
     dispatch({ type: RESET_ATTEMPT })
@@ -27,11 +28,16 @@ export function useBoardLogic () {
     const answersCopy = [...answers]
     const isCompleted = checkIfTheAttempIsCompleted({ arr: answersCopy, index: currentAttempt })
     const isWinner = checkForWin({ userWord: answersCopy[currentAttempt].join(''), wordToGuess })
+    const LAST_ANSWERS_INDEX = answers.length - 1
+
+    if (isWinner || answersCopy[LAST_ANSWERS_INDEX].every(value => value !== null)) {
+      setFinishTry(true)
+    }
 
     // check for lost game
     if (currentAttempt === 4 && isCompleted && e.keyCode === 13) {
       alert('end game')
-      resestAttempt()
+      resetAttempt()
       return
     }
 
@@ -43,7 +49,7 @@ export function useBoardLogic () {
       })
       setTimeout(() => {
         alert('win')
-        resestAttempt()
+        resetAttempt()
       }, 400)
     }
 
@@ -91,8 +97,9 @@ export function useBoardLogic () {
   })
 
   useEffect(() => {
-    console.log('hale')
-  }, [resestAttempt])
-
+    if (finishTry) {
+      console.log('new letter')
+    }
+  }, [finishTry])
   return { answers, lettersPosition }
 }
