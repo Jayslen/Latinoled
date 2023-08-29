@@ -1,5 +1,5 @@
 import { createContext, useReducer } from 'react'
-import { UPDATE_FIELD, RESET_ATTEMPT, RESET_NEXT_FIELD, UPDATE_ATTEMPT, GO_ONE_FIELD_BACK } from '../constants/reducerTypes'
+import { UPDATE_FIELD, RESET_ATTEMPT, RESET_NEXT_FIELD, UPDATE_ATTEMPT, GO_ONE_FIELD_BACK, UPDATE_WORD } from '../constants/reducerTypes'
 
 export const GameData = createContext()
 const initialState = {
@@ -9,7 +9,7 @@ const initialState = {
 }
 
 function reducer (state, action) {
-  const { type } = action
+  const { type, payload } = action
   if (type === UPDATE_ATTEMPT) {
     return {
       ...state,
@@ -41,6 +41,12 @@ function reducer (state, action) {
     return {
       ...state,
       currentField: state.currentField - 1
+    }
+  }
+  if (type === UPDATE_WORD) {
+    return {
+      ...state,
+      wordToGuess: payload
     }
   }
 }
