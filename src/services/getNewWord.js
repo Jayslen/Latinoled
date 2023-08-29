@@ -1,12 +1,13 @@
 import dicctionary from '../mocks/Diccionary.json'
 
-export const getNewWord = () => {
-  const WORDS_PLAYED = localStorage.getItem('words-played-by-user')
+export const getNewWord = (wordsList) => {
   const wordIndex = Math.floor(Math.random() * dicctionary.length)
   const newWord = dicctionary[wordIndex]
-  if (!dicctionary.includes(newWord)) {
+  if (!wordsList.includes(newWord)) {
     return newWord
   }
-
-  return getNewWord
+  if (wordsList.length === dicctionary.length) {
+    return undefined
+  }
+  return getNewWord(wordsList)
 }
