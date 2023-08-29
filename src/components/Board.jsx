@@ -11,13 +11,13 @@ export function Board () {
 
   return (
     <>
-      <section className="h-96 w-[350px] flex flex-col items-center gap-2 mt-10 font-Poppins">
+      <section className="h-96 w-[420px] flex flex-col items-center gap-2 mt-10 font-Poppins">
         {answers.map((rows, indexRow) => {
           const attempRows = lettersPosition[indexRow]
           return (
             <article
               key={indexRow}
-              className="grid grid-cols-5 gap-2 w-full h-full"
+              className="grid grid-cols-6 gap-2 w-full h-full"
             >
               {rows.map((data, index) => {
                 const eachLetter = attempRows ? attempRows[index] : []

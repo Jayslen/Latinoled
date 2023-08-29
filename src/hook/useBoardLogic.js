@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext, useRef } from 'react'
 import { UserAnswersContext } from '../context/userAnswersContext'
 import { GameData } from '../context/gameDataContext'
-import { GO_ONE_FIELD_BACK, RESET_ATTEMPT, RESET_NEXT_FIELD, UPDATE_ATTEMPT, UPDATE_FIELD } from '../constants/reducerTypes'
+import { GO_ONE_FIELD_BACK, RESET_ATTEMPT, RESET_NEXT_FIELD, UPDATE_ATTEMPT, UPDATE_FIELD, UPDATE_WORD } from '../constants/reducerTypes'
 import {
   checkForWin,
   checkIfTheAttempIsCompleted,
@@ -17,6 +17,7 @@ export function useBoardLogic () {
   const [lettersPosition, setlettersPosition] = useState([])
   const [generateNewWord, setGenerateNewWord] = useState(false)
   const [openModal, setOpenModal] = useState(false)
+  const [wordPlayed, setWordPlayed] = useState([])
   const isFirstRender = useRef(true)
 
   const resetAttempt = () => {
@@ -103,12 +104,15 @@ export function useBoardLogic () {
 
   useEffect(() => {
     if (isFirstRender.current || generateNewWord) {
-      const newWord = getNewWord()
-      localStorage.setItem('words-played-by-user', JSON.stringify(newWord))
-      console.log(newWord)
+      const newWord = getNewWord(wordPlayed)
+      dispatch({ type: UPDATE_WORD, payload: newWord.word })
+
+      if (newWord === undefined) return
+      setWordPlayed(prev => [...prev, newWord])
       isFirstRender.current = false
     }
   }, [generateNewWord])
+  console.log(wordToGuess)
 
   return { answers, lettersPosition, openModal, resetAttempt }
 }
