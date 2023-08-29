@@ -105,7 +105,7 @@ export function useBoardLogic () {
   useEffect(() => {
     if (isFirstRender.current || generateNewWord) {
       const newWord = getNewWord(wordPlayed)
-      dispatch({ type: UPDATE_WORD, payload: newWord.word })
+      dispatch({ type: UPDATE_WORD, payload: newWord.word || undefined })
 
       if (newWord === undefined) return
       setWordPlayed(prev => [...prev, newWord])

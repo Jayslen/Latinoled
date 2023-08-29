@@ -11,7 +11,7 @@ export function Board () {
 
   return (
     <>
-      <section className="h-96 w-[420px] flex flex-col items-center gap-2 mt-10 font-Poppins">
+      <section className="h-96 w-[400px] flex flex-col items-center gap-2 mt-10 font-Poppins">
         {answers.map((rows, indexRow) => {
           const attempRows = lettersPosition[indexRow]
           return (
