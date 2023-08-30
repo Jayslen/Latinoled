@@ -17,22 +17,25 @@ export const findLettersPositions = ({ wordToGuess, userWord }) => {
   const data = []
   let delay = 250
   for (let i = 0; i < wordToGuess.length; i++) {
-    if (userWord[i] === wordToGuess[i]) {
+    const amountCurrentLetter = wordToGuess.filter(item => item === userWord[i])
+    const amountCurrentLetterUser = data.filter(item => item.letter === userWord[i])
+
+    if (userWord[i] === wordToGuess[i] && amountCurrentLetterUser.length < amountCurrentLetter.length) {
       data.push({
         letter: userWord[i],
         status: IS_SAME_POSITION,
         delay
       })
-    } else if (!wordToGuess.includes(userWord[i])) {
+    } else if (wordToGuess.includes(userWord[i]) && amountCurrentLetterUser.length < amountCurrentLetter.length) {
       data.push({
         letter: userWord[i],
-        status: IS_NOT_INCLUDED,
+        status: IS_INCLUDED,
         delay
       })
     } else {
       data.push({
         letter: userWord[i],
-        status: IS_INCLUDED,
+        status: IS_NOT_INCLUDED,
         delay
       })
     }
