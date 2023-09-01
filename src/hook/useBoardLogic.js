@@ -36,20 +36,10 @@ export function useBoardLogic () {
     const answersCopy = [...answers]
     const isCompleted = checkIfTheAttempIsCompleted({ arr: answersCopy, index: currentAttempt })
     const isWinner = checkForWin({ userWord: answersCopy[currentAttempt].join(''), wordToGuess })
-    // const LAST_ANSWERS_INDEX = answers.length - 1
+    const LAST_ANSWERS_INDEX = answers.length - 1
 
-    // if (isWinner || answersCopy[LAST_ANSWERS_INDEX].every(value => value !== null)) {
-    //   setFinishTry(true)
-    // }
-
-    // check for lost game
-    if (currentAttempt === 4 && isCompleted && e.keyCode === 13) {
-      setOpenModal(true)
-      return
-    }
-
-    // check for winner
-    if (e.keyCode === 13 && isWinner) {
+    // check for winner or lost game
+    if ((e.keyCode === 13 && isWinner) || (currentAttempt === LAST_ANSWERS_INDEX && isCompleted && e.keyCode === 13)) {
       findLettersPositions({
         wordToGuess: wordToGuess.split(''),
         userWord: answers[currentAttempt]
@@ -77,9 +67,10 @@ export function useBoardLogic () {
 
     // delete last field
     if (e.keyCode === 8) {
+      if (currentField === 0) return
       answersCopy[currentAttempt][currentField - 1] = null
       setAnswers(answersCopy)
-      if (currentField !== 0) dispatch({ type: GO_ONE_FIELD_BACK })
+      dispatch({ type: GO_ONE_FIELD_BACK })
     }
 
     if (
@@ -105,14 +96,14 @@ export function useBoardLogic () {
   useEffect(() => {
     if (isFirstRender.current || generateNewWord) {
       const newWord = getNewWord(wordPlayed)
-      dispatch({ type: UPDATE_WORD, payload: newWord.word || undefined })
+      if (newWord === undefined) return
+      dispatch({ type: UPDATE_WORD, payload: newWord.word })
 
       if (newWord === undefined) return
       setWordPlayed(prev => [...prev, newWord])
+      localStorage.setItem('words-played', JSON.stringify(wordPlayed))
       isFirstRender.current = false
     }
   }, [generateNewWord])
-  console.log(wordToGuess)
-
   return { answers, lettersPosition, openModal, resetAttempt }
 }
