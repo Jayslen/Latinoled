@@ -15,31 +15,47 @@ export const checkForWin = ({ wordToGuess, userWord }) => {
 // check what letters the word includes
 export const findLettersPositions = ({ wordToGuess, userWord }) => {
   const data = []
-  let delay = 250
   for (let i = 0; i < wordToGuess.length; i++) {
-    const amountCurrentLetter = wordToGuess.filter(item => item === userWord[i])
-    const amountCurrentLetterUser = data.filter(item => item.letter === userWord[i])
-
-    if (userWord[i] === wordToGuess[i] && amountCurrentLetterUser.length < amountCurrentLetter.length) {
+    if (userWord[i] === wordToGuess[i]) {
       data.push({
         letter: userWord[i],
         status: IS_SAME_POSITION,
-        delay
+        index: i
       })
-    } else if (wordToGuess.includes(userWord[i]) && amountCurrentLetterUser.length < amountCurrentLetter.length) {
+    } else if (wordToGuess.includes(userWord[i])) {
       data.push({
         letter: userWord[i],
         status: IS_INCLUDED,
-        delay
+        index: i
       })
     } else {
       data.push({
         letter: userWord[i],
         status: IS_NOT_INCLUDED,
-        delay
+        index: i
       })
     }
-    delay += 100
+  }
+
+  for (let i = 0; i < data.length; i++) {
+    const amount = wordToGuess.filter((item) => item === userWord[i])
+    const current = data.filter((item) => item.letter === userWord[i])
+    const includes = data.filter(
+      (item) => item.status === IS_SAME_POSITION && item.letter === userWord[i]
+    )
+
+    if (includes.length === amount.length) {
+      data
+        .filter((item) => item.letter === userWord[i] && item.status === IS_INCLUDED)
+        .map((value) => (value.status = IS_NOT_INCLUDED))
+    }
+
+    if (current.length > amount.length && includes.length !== amount.length) {
+      data
+        .filter((item) => item.letter === userWord[i])
+        .slice(current.length - amount.length - 1)
+        .map((value) => (value.status = IS_NOT_INCLUDED))
+    }
   }
   return data
 }
