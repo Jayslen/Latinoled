@@ -19,20 +19,17 @@ export const findLettersPositions = ({ wordToGuess, userWord }) => {
     if (userWord[i] === wordToGuess[i]) {
       data.push({
         letter: userWord[i],
-        status: IS_SAME_POSITION,
-        index: i
+        status: IS_SAME_POSITION
       })
     } else if (wordToGuess.includes(userWord[i])) {
       data.push({
         letter: userWord[i],
-        status: IS_INCLUDED,
-        index: i
+        status: IS_INCLUDED
       })
     } else {
       data.push({
         letter: userWord[i],
-        status: IS_NOT_INCLUDED,
-        index: i
+        status: IS_NOT_INCLUDED
       })
     }
   }
