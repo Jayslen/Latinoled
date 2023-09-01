@@ -3,7 +3,7 @@ import { UPDATE_FIELD, RESET_ATTEMPT, RESET_NEXT_FIELD, UPDATE_ATTEMPT, GO_ONE_F
 
 export const GameData = createContext()
 const initialState = {
-  wordToGuess: 'paila',
+  wordToGuess: '',
   currentAttempt: 0,
   currentField: 0
 }
