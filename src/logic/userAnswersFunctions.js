@@ -33,24 +33,29 @@ export const findLettersPositions = ({ wordToGuess, userWord }) => {
       })
     }
   }
-
   for (let i = 0; i < data.length; i++) {
-    const amount = wordToGuess.filter((item) => item === userWord[i])
-    const current = data.filter((item) => item.letter === userWord[i])
-    const includes = data.filter(
-      (item) => item.status === IS_SAME_POSITION && item.letter === userWord[i]
-    )
+    const amount = wordToGuess.filter((item) => item === userWord[i]).length
+    const current = data.filter((item) => item.letter === userWord[i]).length
+    const includes = data.filter((item) => item.status === IS_SAME_POSITION && item.letter === userWord[i]).length
 
-    if (includes.length === amount.length) {
+    if (includes === amount) {
       data
         .filter((item) => item.letter === userWord[i] && item.status === IS_INCLUDED)
         .map((value) => (value.status = IS_NOT_INCLUDED))
     }
 
-    if (current.length > amount.length && includes.length !== amount.length) {
+    if (includes > 0) {
       data
-        .filter((item) => item.letter === userWord[i])
-        .slice(current.length - amount.length - 1)
+        .filter(item => item.letter === userWord[i] && item.status === IS_INCLUDED)
+        .slice(1)
+        .map((value) => (value.status = IS_NOT_INCLUDED))
+    }
+
+    // includes.length !== amount.length
+    if (current > amount && includes === 0) {
+      data
+        .filter((item) => item.letter === userWord[i] && item.status === IS_INCLUDED)
+        .slice(amount)
         .map((value) => (value.status = IS_NOT_INCLUDED))
     }
   }
