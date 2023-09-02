@@ -1,3 +1,4 @@
+import { AnimatePresence } from 'framer-motion'
 import {
   IS_INCLUDED,
   IS_NOT_INCLUDED,
@@ -7,7 +8,7 @@ import { useBoardLogic } from '../hook/useBoardLogic'
 import { GameMoldal } from './EndGameModal'
 
 export function Board () {
-  const { answers, lettersPosition, openModal, resetAttempt } = useBoardLogic()
+  const { answers, lettersPosition, openModal, isUserWinner, currentAttempt, boardExample, resetAttempt } = useBoardLogic()
   const delay = ['1000ms', '2000ms', '3000ms', '4000ms', '5000ms']
 
   return (
@@ -45,7 +46,9 @@ export function Board () {
             </article>
           )
         })}
-        {openModal && <GameMoldal resetAttempt={resetAttempt} />}
+        <AnimatePresence>
+          {openModal && <GameMoldal resetAttempt={resetAttempt} isWinner={isUserWinner} attempt={currentAttempt} board={boardExample} />}
+        </AnimatePresence>
       </section>
     </>
   )
