@@ -1,23 +1,18 @@
-import { Board } from './components/Board'
-import { Header } from './components/Header'
-import { Keyboard } from './components/Keyboard'
-import { GameDataProvider } from './context/gameDataContext'
-import { UserAnswerProvider } from './context/userAnswersContext'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { GameBoard } from './routes/PlayPage'
 
 function App () {
-  return (
-    <>
-      <Header />
-      <main className="flex flex-col items-center">
-        <GameDataProvider>
-          <UserAnswerProvider>
-            <Board />
-            {/* <Keyboard /> */}
-          </UserAnswerProvider>
-        </GameDataProvider>
-      </main>
-    </>
-  )
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <div>hello</div>
+    },
+    {
+      path: 'jugar',
+      element: <GameBoard />
+    }
+  ])
+  return <RouterProvider router={router} />
 }
 
 export default App
