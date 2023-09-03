@@ -27,14 +27,14 @@ export function Board () {
                 return (
                   <div
                     key={index}
-                    className={`bg-[#ffffff60] text-white w-full h-full border-[#3a3a3c] flex justify-center items-center font-bold text-2xl uppercase rounded-md border-2  transition-colors duration-500 animate-duration-700 animate-delay-[${delay[index]}] animate-once animate-ease-linear ${
+                    className={`text-black w-full h-full border-[#3a3a3c] flex justify-center items-center font-bold text-2xl uppercase rounded-md border-2  transition-colors duration-500 animate-duration-700 animate-delay-[${delay[index]}] animate-once animate-ease-linear dark:text-white ${
                       eachLetter.length !== 0
                         ? status === IS_SAME_POSITION
-                          ? 'bg-[rgb(83,141,78)] animate-rotate-x'
+                          ? 'bg-green-check animate-rotate-x border-none text-gray-50'
                           : status === IS_INCLUDED
-                          ? 'bg-[rgb(181,159,59)] animate-rotate-x'
+                          ? 'bg-yellow-check animate-rotate-x border-none text-gray-50'
                           : status === IS_NOT_INCLUDED
-                          ? 'bg-[rgb(58,58,60)] animate-rotate-x'
+                          ? 'bg-default-check animate-rotate-x border-none text-gray-50'
                           : null
                         : 'bg-transparent'
                     }`}

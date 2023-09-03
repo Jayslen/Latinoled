@@ -20,7 +20,7 @@ export function GameMoldal ({ resetAttempt, isWinner, attempt, board }) {
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.5, opacity: 0 }}
         transition={{ duration: 1, type: 'spring' }}
-        className="bg-[#DEE2E6] w-96 h-auto px-2 py-2 flex flex-col gap-2 rounded"
+        className="bg-[#DEE2E6] w-96 h-auto px-4 py-2 flex flex-col gap-2 rounded-sm"
       >
         {isWinner && <WinGameData word={wordToGuess.word} meaning={wordToGuess.meaning} attempt={attempt}/>}
         {!isWinner && <LostGameData word={wordToGuess.word} meaning={wordToGuess.meaning}/>}
