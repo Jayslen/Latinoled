@@ -11,11 +11,12 @@ import {
 } from '../constants/reducerTypes'
 import { initialAnswers } from '../constants/initialStates'
 import {
+  checkAnswersStorage,
   checkForWin,
-  checkIfTheAttempIsCompleted,
-  findLettersPositions
+  checkIfTheAttempIsCompleted
 } from '../logic/userAnswersFunctions'
 import { getNewWord } from '../services/getNewWord'
+import { findLettersPositions } from '../logic/LettesPositions'
 
 export function useBoardLogic () {
   const [generateNewWord, setGenerateNewWord] = useState(false)
@@ -88,6 +89,7 @@ export function useBoardLogic () {
       updateBoardExample()
       return
     }
+
     // delete last field
     if (e.keyCode === 8) {
       if (currentField === 0) return
@@ -105,13 +107,20 @@ export function useBoardLogic () {
     answersCopy[currentAttempt][currentField] = e.key
     setAnswers(answersCopy)
     dispatch({ type: UPDATE_FIELD })
+    localStorage.setItem('answers', JSON.stringify(answersCopy))
   }
+
   useEffect(() => {
     window.document.body.addEventListener('keydown', handleKeyPress)
 
     return () =>
       window.document.body.removeEventListener('keydown', handleKeyPress)
   })
+
+  useEffect(() => {
+    const answersInStorage = JSON.parse(localStorage.getItem('answers'))
+    checkAnswersStorage({ storage: answersInStorage })
+  }, [])
 
   useEffect(() => {
     if (isFirstRender.current || generateNewWord) {
