@@ -1,17 +1,22 @@
-export function Home() {
+import { Link } from 'react-router-dom'
+
+export function Home () {
   return (
     <>
-      <main className="bg-gradient-to-r from-gray-100 to-gray-300 relative">
-        <section className="w-screen h-screen grid place-content-center">
-          <h1 className="text-5xl font-bold">Juega (nombre de la app) </h1>
-          <p className="max-w-sm text-center m-auto">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Neque,
-            quae eos dicta esse dolores incidunt autem expedita eaque officia
-            alias enim adipisci perferendis dolorem placeat cum corporis nihil
-            rem quasi!
-          </p>
-          <button className="px-4 py-2 bg-red-300 rounded-full">Jugar</button>
-        </section>
+      <main className="h-[90vh] flex flex-col items-center text-light-mode-text dark:text-dark-mode-text">
+        <div className="text-center">
+          <h1 className="text-5xl font-bold italic">Juega Latinoled</h1>
+          <span className="font-semibold text-2xl italic">
+            El wordle latino
+          </span>
+        </div>
+
+        <Link
+          to={'/jugar'}
+          className="bg-[#212529] text-white px-6 py-3 rounded-md hover:bg-[#343A40] transition-colors font-bold text-center"
+        >
+          Jugar
+        </Link>
       </main>
     </>
   )
