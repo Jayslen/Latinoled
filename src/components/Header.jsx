@@ -1,18 +1,26 @@
-import { IconAlertSquareFilled, IconBrandGithubFilled, IconSettingsFilled } from '@tabler/icons-react'
+import {
+  IconAlertSquareFilled,
+  IconBrandGithubFilled,
+  IconShieldLockFilled
+} from '@tabler/icons-react'
 import { ThemeButton } from './ToggleThemeButton'
+import { Link, Outlet } from 'react-router-dom'
 
 export function Header () {
   return (
-    <header className="text-[##131316] flex justify-between p-4  font-Poppins dark:border-b-white dark:text-white">
-      <h2 className="text-2xl font-bold" lang="es" translate="no">
-        Bobodle
-      </h2>
-      <div className='flex gap-2'>
-        <IconBrandGithubFilled />
-        <IconAlertSquareFilled />
-        <IconSettingsFilled/>
-        <ThemeButton />
-      </div>
-    </header>
+    <>
+      <header className="text-light-mode-text flex justify-between items-center font-Poppins p-4 dark:text-dark-mode-text">
+        <h2 className="text-2xl font-bold" lang="es" translate="no">
+          <Link to={'/'}>Inicio</Link>
+        </h2>
+        <div className="flex gap-2">
+          <IconBrandGithubFilled />
+          <IconAlertSquareFilled />
+          <IconShieldLockFilled/>
+          <ThemeButton />
+        </div>
+      </header>
+      <Outlet/>
+    </>
   )
 }
