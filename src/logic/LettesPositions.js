@@ -1,7 +1,19 @@
-import { IS_SAME_POSITION, IS_INCLUDED, IS_NOT_INCLUDED } from '../constants/positionsIndex'
+import {
+  IS_SAME_POSITION,
+  IS_INCLUDED,
+  IS_NOT_INCLUDED
+} from '../constants/positionsIndex'
+import { getUserWord } from './userAnswersFunctions'
 
-export const findLettersPositions = ({ wordToGuess, userWord }) => {
+export const findLettersPositions = ({
+  wordToGuess,
+  currentWord,
+  attempt,
+  answers
+}) => {
   const data = []
+  const userWord = getUserWord({ userWord: currentWord })
+
   for (let i = 0; i < wordToGuess.length; i++) {
     if (userWord[i] === wordToGuess[i]) {
       data.push({
@@ -25,17 +37,23 @@ export const findLettersPositions = ({ wordToGuess, userWord }) => {
   for (let i = 0; i < data.length; i++) {
     const amount = wordToGuess.filter((item) => item === userWord[i]).length
     const current = data.filter((item) => item.letter === userWord[i]).length
-    const includes = data.filter((item) => item.status === IS_SAME_POSITION && item.letter === userWord[i]).length
+    const includes = data.filter(
+      (item) => item.status === IS_SAME_POSITION && item.letter === userWord[i]
+    ).length
 
     if (includes === amount) {
       data
-        .filter((item) => item.letter === userWord[i] && item.status === IS_INCLUDED)
+        .filter(
+          (item) => item.letter === userWord[i] && item.status === IS_INCLUDED
+        )
         .map((value) => (value.status = IS_NOT_INCLUDED))
     }
 
     if (includes > 0) {
       data
-        .filter(item => item.letter === userWord[i] && item.status === IS_INCLUDED)
+        .filter(
+          (item) => item.letter === userWord[i] && item.status === IS_INCLUDED
+        )
         .slice(1)
         .map((value) => (value.status = IS_NOT_INCLUDED))
     }
@@ -43,10 +61,15 @@ export const findLettersPositions = ({ wordToGuess, userWord }) => {
     // includes.length !== amount.length
     if (current > amount && includes === 0) {
       data
-        .filter((item) => item.letter === userWord[i] && item.status === IS_INCLUDED)
+        .filter(
+          (item) => item.letter === userWord[i] && item.status === IS_INCLUDED
+        )
         .slice(amount)
         .map((value) => (value.status = IS_NOT_INCLUDED))
     }
   }
-  return data
+  answers[attempt].forEach((elm, index) => {
+    elm.letter = data[index].letter
+    elm.status = data[index].status
+  })
 }

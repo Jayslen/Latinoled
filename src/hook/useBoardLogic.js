@@ -22,7 +22,6 @@ export function useBoardLogic () {
   const [generateNewWord, setGenerateNewWord] = useState(false)
   const [openModal, setOpenModal] = useState(false)
   const [isUserWinner, setIsUserWinner] = useState(false)
-  const [boardExample, setBoardExample] = useState([])
   const [lettersPosition, setlettersPosition] = useState([])
   const [wordPlayed, setWordPlayed] = useState([])
   const isFirstRender = useRef(true)
@@ -37,36 +36,28 @@ export function useBoardLogic () {
     setlettersPosition([])
     setOpenModal(false)
     setGenerateNewWord(true)
-    setBoardExample([])
     setTimeout(() => {
       setGenerateNewWord(false)
     }, 600)
   }
 
-  const updateBoardExample = () => {
-    setBoardExample((prev) => [
-      ...prev,
-      findLettersPositions({
-        wordToGuess: wordToGuess.word.split(''),
-        userWord: answers[currentAttempt]
-      })
-    ])
-  }
-
   const handleKeyPress = (e) => {
-    const answersCopy = [...answers]
+    const answersCopy = structuredClone(answers)
     const LAST_ANSWERS_INDEX = answersCopy.length - 1
     const isCompleted = checkIfTheAttempIsCompleted({
       arr: answersCopy,
       index: currentAttempt
     })
     const isWinner = checkForWin({
-      userWord: answersCopy[currentAttempt].join(''),
+      userWord: answersCopy[currentAttempt],
       wordToGuess: wordToGuess.word
     })
 
     // check for winner or lost game
-    if ((e.keyCode === 13 && isWinner) || (currentAttempt === LAST_ANSWERS_INDEX && isCompleted && e.keyCode === 13)) {
+    if (
+      (e.keyCode === 13 && isWinner) ||
+      (currentAttempt === LAST_ANSWERS_INDEX && isCompleted && e.keyCode === 13)
+    ) {
       setIsUserWinner(isWinner)
       setTimeout(() => {
         setOpenModal(true)
@@ -83,31 +74,34 @@ export function useBoardLogic () {
 
         findLettersPositions({
           wordToGuess: wordToGuess.word.split(''),
-          userWord: answers[currentAttempt]
+          currentWord: answers[currentAttempt],
+          attempt: currentAttempt,
+          answers: answersCopy
         })
       ])
-      updateBoardExample()
+      setAnswers(answersCopy)
       return
     }
 
     // delete last field
     if (e.keyCode === 8) {
       if (currentField === 0) return
-      answersCopy[currentAttempt][currentField - 1] = null
+      answersCopy[currentAttempt][currentField - 1].letter = null
       setAnswers(answersCopy)
       dispatch({ type: GO_ONE_FIELD_BACK })
     }
 
-    if (isCompleted ||
+    if (
+      isCompleted ||
       /\W/gi.test(e.key) ||
       /\d/.test(e.key) ||
       e.keyCode === 13 ||
-      e.key.length > 1) return
+      e.key.length > 1
+    ) { return }
 
-    answersCopy[currentAttempt][currentField] = e.key
+    answersCopy[currentAttempt][currentField].letter = e.key
     setAnswers(answersCopy)
     dispatch({ type: UPDATE_FIELD })
-    localStorage.setItem('answers', JSON.stringify(answersCopy))
   }
 
   useEffect(() => {
@@ -128,7 +122,6 @@ export function useBoardLogic () {
       if (newWord === undefined) return
       dispatch({ type: UPDATE_WORD, payload: newWord })
       setWordPlayed((prev) => [...prev, newWord])
-      localStorage.setItem('words-played', JSON.stringify(wordPlayed))
       isFirstRender.current = false
     }
   }, [generateNewWord])
@@ -137,9 +130,8 @@ export function useBoardLogic () {
     answers,
     lettersPosition,
     openModal,
-    resetAttempt,
     isUserWinner,
     currentAttempt,
-    boardExample
+    resetAttempt
   }
 }

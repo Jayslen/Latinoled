@@ -1,9 +1,18 @@
+export const getUserWord = ({ userWord }) => {
+  const word = []
+  userWord.forEach((element) => {
+    word.push(element.letter)
+  })
+  return word
+}
+
 export const checkIfTheAttempIsCompleted = ({ arr, index }) => {
-  return arr[index].every((value) => value !== null)
+  return arr[index].every((value) => value.letter !== null)
 }
 
 export const checkForWin = ({ wordToGuess, userWord }) => {
-  return wordToGuess.toLowerCase() === userWord.toLowerCase()
+  const word = getUserWord({ userWord })
+  return wordToGuess.toLowerCase() === word.join('').toLowerCase()
 }
 
 export const checkAnswersStorage = ({ storage }) => {
