@@ -13,7 +13,7 @@ export function Board () {
 
   return (
     <>
-      <section className="h-96 w-[350px] flex flex-col items-center gap-2 mt-10 font-Poppins">
+      <section className="h-96 w-[350px] flex flex-col items-center gap-2 font-Poppins">
         {answers.map((rows, indexRow) => {
           const attempRows = lettersPosition[indexRow]
           return (
@@ -27,7 +27,7 @@ export function Board () {
                 return (
                   <div
                     key={index}
-                    className={`text-black w-full h-full border-[#3a3a3c] flex justify-center items-center font-bold text-2xl uppercase rounded-md border-2  transition-colors duration-500 animate-duration-700 animate-delay-[${delay[index]}] animate-once animate-ease-linear dark:text-white ${
+                    className={`text-light-mode-text w-full h-full border-[#3a3a3c] flex justify-center items-center font-bold text-2xl uppercase rounded-md border-2  transition-colors duration-500 animate-duration-700 animate-delay-[${delay[index]}] animate-once animate-ease-linear dark:text-dark-mode-text ${
                       eachLetter.length !== 0
                         ? status === IS_SAME_POSITION
                           ? 'bg-green-check animate-rotate-x border-none text-gray-50'
