@@ -1,13 +1,14 @@
 import { useContext } from 'react'
 import { GameData } from '../context/gameDataContext'
 import { motion } from 'framer-motion'
-import { IS_INCLUDED, IS_SAME_POSITION } from '../constants/positionsIndex'
 import { WinGameData } from './modal/WinGameText'
 import { LostGameData } from './modal/LostGameText'
+import { MiniBoard } from './modal/MiniBoard'
 
 export function GameMoldal ({ resetAttempt, isWinner, attempt, board }) {
   const { state } = useContext(GameData)
   const { wordToGuess } = state
+
   return (
     <motion.section
       initial={{ opacity: 0 }}
@@ -22,33 +23,19 @@ export function GameMoldal ({ resetAttempt, isWinner, attempt, board }) {
         transition={{ duration: 1, type: 'spring' }}
         className="bg-[#DEE2E6] w-96 h-auto px-4 py-2 flex flex-col gap-2 rounded-sm"
       >
-        {isWinner && <WinGameData word={wordToGuess.word} meaning={wordToGuess.meaning} attempt={attempt}/>}
-        {!isWinner && <LostGameData word={wordToGuess.word} meaning={wordToGuess.meaning}/>}
+        {isWinner && (
+          <WinGameData
+            word={wordToGuess.word}
+            meaning={wordToGuess.meaning}
+            attempt={attempt}
+          />
+        )}
+        {!isWinner && (
+          <LostGameData word={wordToGuess.word} meaning={wordToGuess.meaning} />
+        )}
 
-        <section className="flex flex-col items-center w-[350px] gap-1 m-auto">
-          {board.map((item, index) => {
-            return (
-              <ul key={index} className="grid grid-cols-5 w-full gap-2">
-                {item.map((item, i) => {
-                  return (
-                    <li
-                      key={i}
-                      className={`p-4 text-center font-bold text-2xl rounded uppercase text-white ${
-                        item.status === IS_SAME_POSITION
-                          ? 'bg-[rgb(83,141,78)]'
-                          : item.status === IS_INCLUDED
-                          ? 'bg-[rgb(181,159,59)]'
-                          : 'bg-[rgb(58,58,60)]'
-                      }`}
-                    >
-                      {item.letter}
-                    </li>
-                  )
-                })}
-              </ul>
-            )
-          })}
-        </section>
+        <MiniBoard board={board} />
+
         <button
           className="bg-[#212529] text-white px-2 py-4 rounded-full hover:bg-[#343A40] transition-colors font-bold"
           onClick={resetAttempt}
