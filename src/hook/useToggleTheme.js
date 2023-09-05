@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react'
 
 export function useToggleTheme () {
-  const [isDarkModeActive, setIsDarkModeActive] = useState(
-    window.matchMedia('(prefers-color-scheme: dark)').matches
-  )
+  const [isDarkModeActive, setIsDarkModeActive] = useState(window.matchMedia('(prefers-color-scheme: dark)').matches)
 
   const handleCLick = () => {
-    setIsDarkModeActive((prev) => !prev)
+    setIsDarkModeActive(prev => !prev)
   }
+
   useEffect(() => {
     if (isDarkModeActive) {
       document.documentElement.classList.add('dark')
@@ -15,5 +14,5 @@ export function useToggleTheme () {
       document.documentElement.classList.remove('dark')
     }
   }, [isDarkModeActive])
-  return { isDarkModeActive, handleCLick }
+  return { handleCLick, isDarkModeActive }
 }
