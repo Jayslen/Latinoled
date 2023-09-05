@@ -16,6 +16,7 @@ export function GameMoldal ({ resetAttempt, isWinner, attempt, board }) {
       exit={{ opacity: 0 }}
       className="backdrop-blur-2xl absolute top-0 w-screen h-screen grid place-content-center text-[#212529]"
     >
+
       <motion.article
         initial={{ scale: 0.1, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -43,6 +44,7 @@ export function GameMoldal ({ resetAttempt, isWinner, attempt, board }) {
           Empezar nuevo intento
         </button>
       </motion.article>
+
     </motion.section>
   )
 }

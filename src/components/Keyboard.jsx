@@ -12,16 +12,12 @@ export function Keyboard () {
       </ul>
       <ul className="grid grid-flow-col gap-2">
         {secondLine.map((value, index) => {
-          return (
-            <KeyBoardKey letter={value.toLocaleLowerCase()} key={index}/>
-          )
+          return <KeyBoardKey letter={value.toLocaleLowerCase()} key={index} />
         })}
       </ul>
       <ul className="grid grid-flow-col gap-2">
         {thirdLine.map((value, index) => {
-          return (
-            <KeyBoardKey letter={value.toLocaleLowerCase()} key={index}/>
-          )
+          return <KeyBoardKey letter={value.toLocaleLowerCase()} key={index} />
         })}
       </ul>
     </div>
@@ -33,7 +29,10 @@ function KeyBoardKey ({ letter }) {
     console.log(e.target.textContent)
   }
   return (
-    <li className="bg-slate-500 w-10 h-12 rounded grid place-content-center text-xl font-semibold cursor-pointer" onClick={handleClick}>
+    <li
+      className="bg-slate-500 w-10 h-12 rounded grid place-content-center text-xl font-semibold cursor-pointer"
+      onClick={handleClick}
+    >
       {letter}
     </li>
   )

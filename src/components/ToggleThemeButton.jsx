@@ -4,16 +4,24 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 function LightMode () {
   return (
-    <motion.button initial={{ translateY: -100, opacity: 0 }} animate={{ opacity: 1, translateY: 0 }} transition={{ type: 'spring' }}>
-     <IconSunFilled />
+    <motion.button
+      initial={{ translateY: -100, opacity: 0 }}
+      animate={{ opacity: 1, translateY: 0 }}
+      transition={{ type: 'spring' }}
+    >
+      <IconSunFilled />
     </motion.button>
   )
 }
 
 function DarkMode () {
   return (
-    <motion.button initial={{ translateY: -100, opacity: 0 }} animate={{ opacity: 1, translateY: 0 }} transition={{ type: 'spring' }}>
-     <IconMoonFilled />
+    <motion.button
+      initial={{ translateY: -100, opacity: 0 }}
+      animate={{ opacity: 1, translateY: 0 }}
+      transition={{ type: 'spring' }}
+    >
+      <IconMoonFilled />
     </motion.button>
   )
 }
@@ -21,13 +29,10 @@ function DarkMode () {
 export function ThemeButton () {
   const { isDarkModeActive, handleCLick } = useToggleTheme()
   return (
-    <div
-      className="dark:text-white cursor-pointer"
-      onClick={handleCLick}
-    >
+    <div className="dark:text-white cursor-pointer" onClick={handleCLick}>
       <AnimatePresence>
-        {isDarkModeActive && <LightMode/>}
-        {!isDarkModeActive && <DarkMode/>}
+        {isDarkModeActive && <LightMode />}
+        {!isDarkModeActive && <DarkMode />}
       </AnimatePresence>
     </div>
   )

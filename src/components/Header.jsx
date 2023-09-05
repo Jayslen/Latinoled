@@ -16,11 +16,11 @@ export function Header () {
         <div className="flex gap-2">
           <IconBrandGithubFilled />
           <IconAlertSquareFilled />
-          <IconShieldLockFilled/>
+          <IconShieldLockFilled />
           <ThemeButton />
         </div>
       </header>
-      <Outlet/>
+      <Outlet />
     </>
   )
 }

@@ -1,5 +1,12 @@
 import { createContext, useReducer } from 'react'
-import { UPDATE_FIELD, RESET_ATTEMPT, RESET_NEXT_FIELD, UPDATE_ATTEMPT, GO_ONE_FIELD_BACK, UPDATE_WORD } from '../constants/reducerTypes'
+import {
+  UPDATE_FIELD,
+  RESET_ATTEMPT,
+  RESET_NEXT_FIELD,
+  UPDATE_ATTEMPT,
+  GO_ONE_FIELD_BACK,
+  UPDATE_WORD
+} from '../constants/reducerTypes'
 
 export const GameData = createContext()
 const initialState = {
@@ -55,8 +62,8 @@ export function GameDataProvider ({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState)
 
   return (
-        <GameData.Provider value={{ state, dispatch }}>
-            {children}
-        </GameData.Provider>
+    <GameData.Provider value={{ state, dispatch }}>
+      {children}
+    </GameData.Provider>
   )
 }
