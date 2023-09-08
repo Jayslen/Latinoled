@@ -17,6 +17,9 @@ export default {
       colors: {
         'light-mode-text': '#111111',
         'dark-mode-text': '#F2F3F4'
+      },
+      screens: {
+        sm: '425px'
       }
     }
   },
