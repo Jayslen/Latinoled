@@ -1,0 +1,22 @@
+[
+  {
+    "country": "republica dominicana",
+    "image": "../../src/assets/images/dominican-republic.png",
+    "available": true
+  },
+  {
+    "country": "colombia",
+    "image": "../../src/assets/images/colombia.png",
+    "available": false
+  },
+  {
+    "country": "uruguay",
+    "image": "../../src/assets/images/uruguay.png",
+    "available": false
+  },
+  {
+    "country": "mexico",
+    "image": "../../src/assets/images/mexico.png",
+    "available": false
+  }
+]
