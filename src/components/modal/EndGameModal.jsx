@@ -1,13 +1,24 @@
-import { useContext } from 'react'
-import { GameData } from '../context/gameDataContext'
+import { useContext, useEffect } from 'react'
+import { GameData } from '../../context/gameDataContext'
 import { motion } from 'framer-motion'
-import { WinGameData } from './modal/WinGameText'
-import { LostGameData } from './modal/LostGameText'
-import { MiniBoard } from './modal/MiniBoard'
+import { WinGameData } from './WinGameText'
+import { LostGameData } from './LostGameText'
+import { MiniBoard } from './MiniBoard'
 
 export function GameMoldal ({ resetAttempt, isWinner, attempt, board }) {
   const { state } = useContext(GameData)
   const { wordToGuess } = state
+  const handleKeyPress = () => {
+    resetAttempt()
+  }
+
+  useEffect(() => {
+    window.document.body.addEventListener('keypress', handleKeyPress)
+
+    return () => {
+      window.document.body.removeEventListener('keypress', handleKeyPress)
+    }
+  })
 
   return (
     <motion.section
@@ -16,7 +27,6 @@ export function GameMoldal ({ resetAttempt, isWinner, attempt, board }) {
       exit={{ opacity: 0 }}
       className="backdrop-blur-2xl absolute top-0 w-screen h-screen grid place-content-center text-[#212529]"
     >
-
       <motion.article
         initial={{ scale: 0.1, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -24,16 +34,17 @@ export function GameMoldal ({ resetAttempt, isWinner, attempt, board }) {
         transition={{ duration: 1, type: 'spring' }}
         className="bg-[#DEE2E6] w-96 h-auto px-4 py-2 flex flex-col gap-2 rounded-sm"
       >
-        {isWinner && (
+        {isWinner
+          ? (
           <WinGameData
             word={wordToGuess.word}
             meaning={wordToGuess.meaning}
             attempt={attempt}
           />
-        )}
-        {!isWinner && (
+            )
+          : (
           <LostGameData word={wordToGuess.word} meaning={wordToGuess.meaning} />
-        )}
+            )}
 
         <MiniBoard board={board} />
 
@@ -44,7 +55,6 @@ export function GameMoldal ({ resetAttempt, isWinner, attempt, board }) {
           Empezar nuevo intento
         </button>
       </motion.article>
-
     </motion.section>
   )
 }

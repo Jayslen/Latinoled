@@ -5,7 +5,7 @@ import {
   IS_SAME_POSITION
 } from '../constants/positionsIndex'
 import { useBoardLogic } from '../hook/useBoardLogic'
-import { GameMoldal } from './EndGameModal'
+import { GameMoldal } from './modal/EndGameModal'
 
 export function Board () {
   const { answers, openModal, isUserWinner, currentAttempt, resetAttempt } =
@@ -14,7 +14,7 @@ export function Board () {
 
   return (
     <>
-      <section className="h-96 w-[350px] flex flex-col items-center gap-2 font-Poppins">
+      <section className="h-80 w-full px-2 flex flex-col items-center gap-2 font-Poppins sm:w-[350px] sm:h-[400px] sm:p-0">
         {answers.map((rows, indexRow) => {
           return (
             <article
@@ -27,11 +27,11 @@ export function Board () {
                     key={index}
                     className={`text-light-mode-text w-full h-full border-[#3a3a3c] flex justify-center items-center font-bold text-2xl uppercase rounded-md border-2  transition-colors duration-500 animate-duration-700 animate-once animate-ease-linear dark:text-dark-mode-text ${
                       data.status === IS_SAME_POSITION
-                        ? 'bg-green-check animate-rotate-x border-none text-gray-50'
+                        ? 'bg-green-check animate-rotate-x border-none text-white'
                         : data.status === IS_INCLUDED
-                        ? 'bg-yellow-check animate-rotate-x border-none text-gray-50'
+                        ? 'bg-yellow-check animate-rotate-x border-none text-white'
                         : data.status === IS_NOT_INCLUDED
-                        ? 'bg-default-check animate-rotate-x border-none text-gray-50'
+                        ? 'bg-default-check animate-rotate-x border-none text-white'
                         : null
                     }`}
                   >
