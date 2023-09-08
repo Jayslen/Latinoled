@@ -1,39 +1,14 @@
 import { useContext } from 'react'
 import { motion } from 'framer-motion'
-import { ToastContainer, toast } from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
 import { GameData } from '../../context/gameDataContext'
 import { UPDATE_COUNTRY } from '../../constants/reducerTypes'
 import countries from '../../mocks/countries.json'
+import { showError, showSucces } from '../notifications/tostifyNotification'
 import 'react-toastify/dist/ReactToastify.css'
 
 export function FlagsContainer () {
   const { state, dispatch } = useContext(GameData)
-
-  const showError = () => {
-    toast.error('Este pais estara disponible proximamente', {
-      position: 'top-right',
-      autoClose: 1500,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: 'colored'
-    })
-  }
-
-  const showSucces = ({ country }) => {
-    toast.success(`Pais Cambiado a ${country}`, {
-      position: 'top-right',
-      autoClose: 1500,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: 'colored'
-    })
-  }
 
   return (
     <div className="w-[320px] flex flex-wrap gap-2 justify-center">
@@ -60,9 +35,9 @@ export function FlagsContainer () {
             onClick={() => {
               if (available) {
                 dispatch({ payload: country, type: UPDATE_COUNTRY })
-                showSucces({ country })
+                showSucces({ successMsg: `Pais selecionado ${country}` })
               } else {
-                showError()
+                showError({ errorMsg: 'Este pais estara disponible proximamente' })
               }
             }}
           />

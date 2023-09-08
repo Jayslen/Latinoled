@@ -1,4 +1,5 @@
 import { AnimatePresence } from 'framer-motion'
+import { ToastContainer } from 'react-toastify'
 import {
   IS_INCLUDED,
   IS_NOT_INCLUDED,
@@ -14,6 +15,18 @@ export function Board () {
 
   return (
     <>
+    <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <section className="h-80 w-full px-2 flex flex-col items-center gap-2 font-Poppins sm:w-[350px] sm:h-[400px] sm:p-0">
         {answers.map((rows, indexRow) => {
           return (

@@ -16,6 +16,7 @@ import {
 } from '../logic/userAnswersFunctions'
 import { getNewWord } from '../services/getNewWord'
 import { findLettersPositions } from '../logic/LettesPositions'
+import { showError } from '../components/notifications/tostifyNotification'
 
 export function useBoardLogic () {
   const [generateNewWord, setGenerateNewWord] = useState(false)
@@ -90,13 +91,19 @@ export function useBoardLogic () {
       dispatch({ type: GO_ONE_FIELD_BACK })
     }
 
-    if (
-      isCompleted ||
-      /\W/gi.test(e.key) ||
-      /\d/.test(e.key) ||
-      e.keyCode === 13 ||
-      e.key.length > 1
-    ) {
+    // error attemp incomplete
+    if (e.keyCode === 13 && !isCompleted) {
+      showError({ errorMsg: 'Complete el intento' })
+      return
+    }
+
+    // error nums or simbols
+    if (/\W/gi.test(e.key) || /\d/.test(e.key)) {
+      showError({ errorMsg: 'No puede escribir numeros o simbolos' })
+      return
+    }
+
+    if (e.key.length > 1) {
       return
     }
 
