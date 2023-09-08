@@ -11,7 +11,6 @@ import {
 } from '../constants/reducerTypes'
 import { initialAnswers } from '../constants/initialStates'
 import {
-  checkAnswersStorage,
   checkForWin,
   checkIfTheAttempIsCompleted
 } from '../logic/userAnswersFunctions'
@@ -27,7 +26,7 @@ export function useBoardLogic () {
   const isFirstRender = useRef(true)
   const { answers, setAnswers } = useContext(UserAnswersContext)
   const { state, dispatch } = useContext(GameData)
-  const { currentField, wordToGuess, currentAttempt } = state
+  const { currentField, wordToGuess, currentAttempt, country } = state
 
   const resetAttempt = () => {
     setAnswers(initialAnswers())
@@ -97,9 +96,11 @@ export function useBoardLogic () {
       /\d/.test(e.key) ||
       e.keyCode === 13 ||
       e.key.length > 1
-    ) { return }
+    ) {
+      return
+    }
 
-    answersCopy[currentAttempt][currentField].letter = e.key
+    answersCopy[currentAttempt][currentField].letter = e.key.toLowerCase()
     setAnswers(answersCopy)
     dispatch({ type: UPDATE_FIELD })
   }
@@ -112,13 +113,10 @@ export function useBoardLogic () {
   })
 
   useEffect(() => {
-    const answersInStorage = JSON.parse(localStorage.getItem('answers'))
-    checkAnswersStorage({ storage: answersInStorage })
-  }, [])
-
-  useEffect(() => {
+    // actualizar wordplayed
     if (isFirstRender.current || generateNewWord) {
-      const newWord = getNewWord(wordPlayed)
+      const newWord = getNewWord({ wordsList: wordPlayed, country })
+      setWordPlayed((prev) => [...prev, newWord])
       if (newWord === undefined) return
       dispatch({ type: UPDATE_WORD, payload: newWord })
       setWordPlayed((prev) => [...prev, newWord])
