@@ -5,12 +5,14 @@ import {
   RESET_NEXT_FIELD,
   UPDATE_ATTEMPT,
   GO_ONE_FIELD_BACK,
-  UPDATE_WORD
+  UPDATE_WORD,
+  UPDATE_COUNTRY
 } from '../constants/reducerTypes'
 
 export const GameData = createContext()
 const initialState = {
   wordToGuess: '',
+  country: 'republica dominicana',
   currentAttempt: 0,
   currentField: 0
 }
@@ -54,6 +56,13 @@ function reducer (state, action) {
     return {
       ...state,
       wordToGuess: payload
+    }
+  }
+
+  if (type === UPDATE_COUNTRY) {
+    return {
+      ...state,
+      country: payload
     }
   }
 }
