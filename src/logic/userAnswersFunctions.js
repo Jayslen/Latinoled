@@ -7,7 +7,7 @@ export const getUserWord = ({ userWord }) => {
 }
 
 export const checkIfTheAttempIsCompleted = ({ arr, index }) => {
-  return arr[index].every((value) => value.letter !== null)
+  return arr[index]?.every((value) => value.letter !== null)
 }
 
 export const checkForWin = ({ wordToGuess, userWord }) => {
