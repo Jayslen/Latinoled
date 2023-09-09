@@ -1,15 +1,17 @@
 import { useContext, useEffect } from 'react'
 import { GameData } from '../../context/gameDataContext'
-import { motion } from 'framer-motion'
 import { WinGameData } from './WinGameText'
 import { LostGameData } from './LostGameText'
 import { MiniBoard } from './MiniBoard'
+import { Backdrop } from '../Backdrop'
 
 export function GameMoldal ({ resetAttempt, isWinner, attempt, board }) {
   const { state } = useContext(GameData)
   const { wordToGuess } = state
-  const handleKeyPress = () => {
-    resetAttempt()
+  const handleKeyPress = (e) => {
+    if (e.keyCode === 13) {
+      resetAttempt()
+    }
   }
 
   useEffect(() => {
@@ -21,19 +23,7 @@ export function GameMoldal ({ resetAttempt, isWinner, attempt, board }) {
   })
 
   return (
-    <motion.section
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="backdrop-blur-2xl absolute top-0 w-screen h-screen grid place-content-center text-[#212529]"
-    >
-      <motion.article
-        initial={{ scale: 0.1, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.5, opacity: 0 }}
-        transition={{ duration: 1, type: 'spring' }}
-        className="bg-[#DEE2E6] w-96 h-auto px-4 py-2 flex flex-col gap-2 rounded-sm"
-      >
+    <Backdrop>
         {isWinner
           ? (
           <WinGameData
@@ -54,7 +44,6 @@ export function GameMoldal ({ resetAttempt, isWinner, attempt, board }) {
         >
           Empezar nuevo intento
         </button>
-      </motion.article>
-    </motion.section>
+    </Backdrop>
   )
 }
