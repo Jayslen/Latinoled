@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext, useRef } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { UserAnswersContext } from '../context/userAnswersContext'
 import { GameData } from '../context/gameDataContext'
 import {
@@ -16,32 +16,38 @@ import {
 } from '../logic/userAnswersFunctions'
 import { getNewWord } from '../services/getNewWord'
 import { findLettersPositions } from '../logic/LettesPositions'
-import { showError } from '../components/notifications/tostifyNotification'
+import { errorNotification, succesNotification } from '../components/notifications/tostifyNotification'
+import dictionary from '../mocks/Diccionary.json'
 
 export function useBoardLogic () {
+  const { answers, setAnswers } = useContext(UserAnswersContext)
+  const { state: { currentField, wordToGuess, currentAttempt, country }, dispatch } = useContext(GameData)
   const [generateNewWord, setGenerateNewWord] = useState(false)
   const [openModal, setOpenModal] = useState(false)
+  const [warnModal, setWarnModal] = useState(false)
+  const WordsInStorage = JSON.parse(localStorage.getItem(`${country}-words-played`))
   const [isUserWinner, setIsUserWinner] = useState(false)
-  const [lettersPosition, setlettersPosition] = useState([])
-  const [wordPlayed, setWordPlayed] = useState([])
-  const isFirstRender = useRef(true)
-  const { answers, setAnswers } = useContext(UserAnswersContext)
-  const { state, dispatch } = useContext(GameData)
-  const { currentField, wordToGuess, currentAttempt, country } = state
+  const [wordsPlayed, setWordsPlayed] = useState(WordsInStorage || [])
 
   const resetAttempt = () => {
     setAnswers(initialAnswers())
     dispatch({ type: RESET_NEXT_FIELD })
     dispatch({ type: RESET_ATTEMPT })
-    setlettersPosition([])
     setOpenModal(false)
-    setGenerateNewWord(true)
-    setTimeout(() => {
-      setGenerateNewWord(false)
-    }, 600)
+    setGenerateNewWord(prev => !prev)
+  }
+
+  const clearWordsPlayed = () => {
+    setWordsPlayed([])
+    setWarnModal(prev => !prev)
+    succesNotification({ successMsg: 'Registro limpio' })
   }
 
   const handleKeyPress = (e) => {
+    if (dictionary[country].length === wordsPlayed.length) {
+      setWarnModal(prev => !prev)
+      return
+    }
     const answersCopy = structuredClone(answers)
     const LAST_ANSWERS_INDEX = answersCopy.length - 1
     const isCompleted = checkIfTheAttempIsCompleted({
@@ -69,16 +75,12 @@ export function useBoardLogic () {
       dispatch({ type: RESET_NEXT_FIELD })
       dispatch({ type: UPDATE_ATTEMPT })
 
-      setlettersPosition((prev) => [
-        ...prev,
-
-        findLettersPositions({
-          wordToGuess: wordToGuess.word.split(''),
-          currentWord: answers[currentAttempt],
-          attempt: currentAttempt,
-          answers: answersCopy
-        })
-      ])
+      findLettersPositions({
+        wordToGuess: wordToGuess.word.split(''),
+        currentWord: answers[currentAttempt],
+        attempt: currentAttempt,
+        answers: answersCopy
+      })
       setAnswers(answersCopy)
       return
     }
@@ -92,20 +94,24 @@ export function useBoardLogic () {
     }
 
     // error attemp incomplete
-    if (e.keyCode === 13 && !isCompleted) {
-      showError({ errorMsg: 'Complete el intento' })
+    if (e.keyCode === 13 && !isCompleted && !openModal) {
+      errorNotification({ errorMsg: 'Complete el intento' })
       return
     }
 
     // error nums or simbols
     if (/\W/gi.test(e.key) || /\d/.test(e.key)) {
-      showError({ errorMsg: 'No puede escribir numeros o simbolos' })
+      errorNotification({ errorMsg: 'No puede escribir numeros o simbolos' })
       return
     }
 
-    if (e.key.length > 1) {
+    // fiels complete
+    if (currentField > LAST_ANSWERS_INDEX && e.key.length === 1) {
+      errorNotification({ errorMsg: 'Todos los campos completos' })
       return
     }
+
+    if (e.key.length > 1) return
 
     answersCopy[currentAttempt][currentField].letter = e.key.toLowerCase()
     setAnswers(answersCopy)
@@ -120,23 +126,21 @@ export function useBoardLogic () {
   })
 
   useEffect(() => {
-    // actualizar wordplayed
-    if (isFirstRender.current || generateNewWord) {
-      const newWord = getNewWord({ wordsList: wordPlayed, country })
-      setWordPlayed((prev) => [...prev, newWord])
-      if (newWord === undefined) return
-      dispatch({ type: UPDATE_WORD, payload: newWord })
-      setWordPlayed((prev) => [...prev, newWord])
-      isFirstRender.current = false
-    }
-  }, [generateNewWord])
+    const newWord = getNewWord({ wordsList: wordsPlayed, country })
 
+    if (newWord === undefined) return
+
+    dispatch({ type: UPDATE_WORD, payload: newWord })
+    setWordsPlayed((prev) => [...prev, newWord])
+    window.localStorage.setItem(`${country}-words-played`, JSON.stringify(wordsPlayed))
+  }, [generateNewWord, warnModal])
   return {
     answers,
-    lettersPosition,
     openModal,
     isUserWinner,
     currentAttempt,
-    resetAttempt
+    warnModal,
+    resetAttempt,
+    clearWordsPlayed
   }
 }
