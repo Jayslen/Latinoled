@@ -4,7 +4,7 @@ import { ToastContainer } from 'react-toastify'
 import { GameData } from '../../context/gameDataContext'
 import { UPDATE_COUNTRY } from '../../constants/reducerTypes'
 import countries from '../../mocks/countries.json'
-import { showError, showSucces } from '../notifications/tostifyNotification'
+import { errorNotification, succesNotification } from '../notifications/tostifyNotification'
 import 'react-toastify/dist/ReactToastify.css'
 
 export function FlagsContainer () {
@@ -35,9 +35,9 @@ export function FlagsContainer () {
             onClick={() => {
               if (available) {
                 dispatch({ payload: country, type: UPDATE_COUNTRY })
-                showSucces({ successMsg: `Pais selecionado ${country}` })
+                succesNotification({ successMsg: `Pais selecionado ${country}` })
               } else {
-                showError({ errorMsg: 'Este pais estara disponible proximamente' })
+                errorNotification({ errorMsg: `${country} estara disponible proximamente` })
               }
             }}
           />
