@@ -6,13 +6,12 @@ import {
   IS_SAME_POSITION
 } from '../constants/positionsIndex'
 import { useBoardLogic } from '../hook/useBoardLogic'
-import { GameMoldal } from './modal/EndGameModal'
+import { GameMoldal } from './modal-end-game/EndGameModal'
+import { WarnModal } from './complete-words-modal/WarnModal'
 
 export function Board () {
-  const { answers, openModal, isUserWinner, currentAttempt, resetAttempt } =
-    useBoardLogic()
+  const { answers, openModal, isUserWinner, currentAttempt, resetAttempt, warnModal, clearWordsPlayed } = useBoardLogic()
   const miniBoard = answers.slice(0, currentAttempt)
-
   return (
     <>
     <ToastContainer
@@ -27,7 +26,7 @@ export function Board () {
         pauseOnHover
         theme="dark"
       />
-      <section className="h-80 w-full px-2 flex flex-col items-center gap-2 font-Poppins sm:w-[350px] sm:h-[400px] sm:p-0">
+      <section className="h-80 w-full flex flex-col items-center gap-2 font-Poppins sm:h-[400px]">
         {answers.map((rows, indexRow) => {
           return (
             <article
@@ -64,6 +63,7 @@ export function Board () {
               board={miniBoard}
             />
           )}
+          {warnModal && <WarnModal clear={clearWordsPlayed}/>}
         </AnimatePresence>
       </section>
     </>

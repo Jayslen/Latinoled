@@ -12,10 +12,10 @@ export function Home () {
             initial={{ scale: 0.2, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 0.3, type: 'spring' }}
-            className="text-7xl font-bold italic"
+            className="text-4xl font-bold italic md:text-7xl"
           >
             Juega Latinoled
-            <span className="block text-4xl pt-1">El wordle latino</span>
+            <span className="block text-2xl pt-1 md:text-4xl ">El wordle latino</span>
           </motion.h1>
           <motion.img
             animate={{ scale: [0.5, 1], opacity: [0, 1] }}
@@ -24,7 +24,7 @@ export function Home () {
             alt=""
             className="w-16 h-16"
           />
-          <p className="text-lg">
+          <p className="text-md px-4 animate-fade md:text-lg md:p-0">
             <strong>Latinoled</strong> es un emocionante juego de palabras
             inspirado en el popular juego Wordle, pero con un toque cultural que
             te permite sumergirte en la riqueza lingüística de América Latina.

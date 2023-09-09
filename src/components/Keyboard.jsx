@@ -4,7 +4,7 @@ const thirdLine = ['Z', 'X', 'C', 'V', 'B', 'N', 'M']
 
 export function Keyboard () {
   return (
-    <div className="flex flex-col gap-2 items-center text-white font-Poppins w-[350px] mt-5">
+    <div className="flex flex-col gap-2 items-center text-white font-Poppins w-[350px]">
       <ul className="grid grid-flow-col gap-2">
         {firsLine.map((value, index) => {
           return <KeyBoardKey letter={value.toLocaleLowerCase()} key={index} />
@@ -30,7 +30,7 @@ function KeyBoardKey ({ letter }) {
   }
   return (
     <li
-      className="dark:bg-dark-mode-text dark:text-light-mode-text text-dark-mode-text bg-light-mode-text w-10 h-12 rounded grid place-content-center text-xl font-semibold cursor-pointer uppercase"
+      className="dark:bg-dark-mode-text dark:text-light-mode-text text-dark-mode-text bg-light-mode-text w-10 h-12 rounded grid place-content-center text-xl font-semibold cursor-pointer uppercase select-none"
       onClick={handleClick}
     >
       {letter}

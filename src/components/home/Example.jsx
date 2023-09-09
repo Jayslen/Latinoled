@@ -9,11 +9,8 @@ export function Example () {
     { letter: 'U', delayLetter: 1.2, delayDiv: 2.8 }
   ]
   return (
-    <motion.div
-    initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ type: 'spring' }}
-      className="flex justify-center gap-2 w-[320px] "
+    <div
+      className="flex justify-center gap-2 w-[320px] animate-fade"
     >
       {row.map((item, index) => {
         return (
@@ -39,6 +36,6 @@ export function Example () {
           </motion.div>
         )
       })}
-    </motion.div>
+    </div>
   )
 }
