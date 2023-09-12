@@ -85,7 +85,6 @@ export function useBoardLogic () {
 
     dispatch({ type: UPDATE_WORD, payload: newWord })
     dispatchOptions({ type: UPDATE_WORDS_PLAYED, payload: newWord })
-    console.log({ storage: JSON.parse(localStorage.getItem(`${country}-words-played`)), wordsPlayed })
   }, [generateNewWord])
 
   useEffect(() => {
