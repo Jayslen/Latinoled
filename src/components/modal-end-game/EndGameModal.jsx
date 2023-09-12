@@ -1,13 +1,12 @@
 import { useContext, useEffect } from 'react'
-import { GameData } from '../../context/gameDataContext'
+import { UserGameData } from '../../context/userGameDataContext'
 import { WinGameData } from './WinGameText'
 import { LostGameData } from './LostGameText'
 import { MiniBoard } from './MiniBoard'
 import { Backdrop } from '../Backdrop'
 
 export function GameMoldal ({ resetAttempt, isWinner, attempt, board }) {
-  const { state } = useContext(GameData)
-  const { wordToGuess } = state
+  const { state: { wordToGuess } } = useContext(UserGameData)
   const handleKeyPress = (e) => {
     if (e.keyCode === 13) {
       resetAttempt()

@@ -10,7 +10,7 @@ import { GameMoldal } from './modal-end-game/EndGameModal'
 import { WarnModal } from './complete-words-modal/WarnModal'
 
 export function Board () {
-  const { answers, openModal, isUserWinner, currentAttempt, resetAttempt, warnModal, clearWordsPlayed } = useBoardLogic()
+  const { answers, endGameModal, isUserWinner, currentAttempt, resetAttempt, warnModal, clearWordsPlayed } = useBoardLogic()
   const miniBoard = answers.slice(0, currentAttempt)
   return (
     <>
@@ -55,7 +55,7 @@ export function Board () {
           )
         })}
         <AnimatePresence>
-          {openModal && (
+          {endGameModal && (
             <GameMoldal
               resetAttempt={resetAttempt}
               isWinner={isUserWinner}

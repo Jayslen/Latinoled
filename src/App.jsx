@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { GameBoard } from './routes/GameBoardPage'
 import { Home } from './routes/Home'
 import { Header } from './components/Header'
-import { GameDataProvider } from './context/gameDataContext'
+import { UserGameDataProvider } from './context/userGameDataContext'
 
 function App () {
   const router = createBrowserRouter([
@@ -22,9 +22,9 @@ function App () {
     }
   ])
   return (
-    <GameDataProvider>
+    <UserGameDataProvider>
       <RouterProvider router={router} />
-    </GameDataProvider>
+    </UserGameDataProvider>
   )
 }
 
