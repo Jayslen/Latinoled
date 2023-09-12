@@ -1,16 +1,18 @@
 import { useVirtualKey } from '../hook/useVirtualKeyLogic'
+import { motion } from 'framer-motion'
+import { IconCheck, IconBackspace } from '@tabler/icons-react'
 
 const firsLine = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P']
 const secondLine = ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L']
-const thirdLine = ['Enter', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'borrar']
+const thirdLine = ['Z', 'X', 'C', 'V', 'B', 'N', 'M']
 
 export function Keyboard () {
   const { handlePressKey } = useVirtualKey()
 
   return (
     <>
-      <div className="flex flex-col gap-2 items-center text-white font-Poppins w-[350px]">
-        <ul className="grid grid-flow-col gap-2">
+      <div className="grid grid-rows-3 place-content-center place-items-center gap-2 text-white font-Poppins w-full">
+        <ul className="flex gap-1 sm:gap-1.5">
           {firsLine.map((value, index) => {
             return (
               <KeyBoardKey
@@ -21,7 +23,7 @@ export function Keyboard () {
             )
           })}
         </ul>
-        <ul className="grid grid-flow-col gap-2">
+        <ul className="flex gap-1 sm:gap-1.5">
           {secondLine.map((value, index) => {
             return (
               <KeyBoardKey
@@ -32,7 +34,7 @@ export function Keyboard () {
             )
           })}
         </ul>
-        <ul className="grid grid-flow-col gap-2">
+        <ul className="flex gap-1 sm:gap-1.5">
           {thirdLine.map((value, index) => {
             return (
               <KeyBoardKey
@@ -43,6 +45,15 @@ export function Keyboard () {
             )
           })}
         </ul>
+        <div className='w-[190px] sm:w-[250px] flex justify-between gap-1'>
+          <Buttons functionality={'enter'} handleClick={handlePressKey}>
+            {/* <IconCheck/> */}
+            Enter
+          </Buttons>
+          <Buttons functionality={'delete'} handleClick={handlePressKey}>
+            Borrar
+          </Buttons>
+        </div>
       </div>
     </>
   )
@@ -50,11 +61,20 @@ export function Keyboard () {
 
 function KeyBoardKey ({ letter, handleClick }) {
   return (
-    <li
-      className="dark:bg-dark-mode-text dark:text-light-mode-text text-dark-mode-text bg-light-mode-text w-10 h-12 rounded grid place-content-center text-xl font-semibold cursor-pointer uppercase select-none"
+    <motion.li
+      whileTap={{ scale: 0.7 }}
+      className="dark:bg-dark-mode-text dark:text-light-mode-text text-dark-mode-text bg-light-mode-text  w-7 h-10 sm:w-9 sm:h-12 rounded grid place-content-center text-xl font-semibold cursor-pointer uppercase select-none"
       onClick={handleClick}
     >
       {letter}
-    </li>
+    </motion.li>
+  )
+}
+
+function Buttons ({ children, functionality, handleClick }) {
+  return (
+    <motion.button whileTap={{ scale: 0.7 }} className='dark:bg-dark-mode-text dark:text-light-mode-text text-dark-mode-text bg-light-mode-text w-full rounded py-3 grid place-content-center' data-functionality={functionality} onClick={handleClick}>
+    {children}
+  </motion.button>
   )
 }

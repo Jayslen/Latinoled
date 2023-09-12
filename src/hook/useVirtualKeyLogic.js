@@ -17,6 +17,7 @@ export function useVirtualKey () {
   const { setNewLetter, deleteLastField } = useUpdateStates()
 
   const handlePressKey = (e) => {
+    console.log(e)
     const currentLetter = e.target.textContent.toLowerCase()
 
     if (dictionary[country].length === wordsPlayed.length) {
