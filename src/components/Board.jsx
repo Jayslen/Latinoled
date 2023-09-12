@@ -1,4 +1,3 @@
-import { AnimatePresence } from 'framer-motion'
 import { ToastContainer } from 'react-toastify'
 import {
   IS_INCLUDED,
@@ -6,12 +5,10 @@ import {
   IS_SAME_POSITION
 } from '../constants/positionsIndex'
 import { useBoardLogic } from '../hook/useBoardLogic'
-import { GameMoldal } from './modal-end-game/EndGameModal'
-import { WarnModal } from './complete-words-modal/WarnModal'
 
 export function Board () {
-  const { answers, endGameModal, isUserWinner, currentAttempt, resetAttempt, warnModal, clearWordsPlayed } = useBoardLogic()
-  const miniBoard = answers.slice(0, currentAttempt)
+  const { answers } = useBoardLogic()
+
   return (
     <>
     <ToastContainer
@@ -54,17 +51,7 @@ export function Board () {
             </article>
           )
         })}
-        <AnimatePresence>
-          {endGameModal && (
-            <GameMoldal
-              resetAttempt={resetAttempt}
-              isWinner={isUserWinner}
-              attempt={currentAttempt}
-              board={miniBoard}
-            />
-          )}
-          {warnModal && <WarnModal clear={clearWordsPlayed}/>}
-        </AnimatePresence>
+
       </section>
     </>
   )

@@ -2,58 +2,35 @@ import { useEffect, useContext } from 'react'
 import { UserAnswersContext } from '../context/userAnswersContext'
 import { UserGameData } from '../context/userGameDataContext'
 import { GameData } from '../context/gameDataContext'
-import { initialAnswers } from '../constants/initialStates'
-import { GO_ONE_FIELD_BACK, RESET_ATTEMPT, RESET_NEXT_FIELD, UPDATE_ATTEMPT, UPDATE_FIELD, UPDATE_WORD, UPDATE_GENERATE_NEW_WORD } from '../constants/reducerTypes'
-import { CLEAR_WORDS_PLAYED, UPDATE_ENDGAME_MODAL, UPDATE_IS_WINNER, UPDATE_WARN_MODAL, UPDATE_WORDS_PLAYED } from '../constants/gameOptionsReducerTypes'
+import { UPDATE_WORD } from '../constants/reducerTypes'
+import { UPDATE_ENDGAME_MODAL, UPDATE_IS_WINNER, UPDATE_WARN_MODAL, UPDATE_WORDS_PLAYED } from '../constants/gameOptionsReducerTypes'
 import { getNewWord } from '../services/getNewWord'
 import { checkForWin, checkIfTheAttempIsCompleted } from '../logic/userAnswersFunctions'
-import { findLettersPositions } from '../logic/LettesPositions'
-import { errorNotification, succesNotification } from '../components/notifications/tostifyNotification'
+import { errorNotification } from '../components/notifications/tostifyNotification'
 import dictionary from '../mocks/Diccionary.json'
+import { useUpdateStates } from './useUpdateGloblaStates'
 
 export function useBoardLogic () {
-  const { answers, setAnswers } = useContext(UserAnswersContext)
+  const { answers } = useContext(UserAnswersContext)
   const { state: { currentField, wordToGuess, currentAttempt, country, generateNewWord }, dispatch } = useContext(UserGameData)
-  const { options: { endGameModal, warnModal, isUserWinner, wordsPlayed }, dispatchOptions } = useContext(GameData)
-
-  const resetAttempt = () => {
-    setAnswers(initialAnswers())
-    dispatch({ type: RESET_NEXT_FIELD })
-    dispatch({ type: RESET_ATTEMPT })
-    dispatchOptions({ type: UPDATE_ENDGAME_MODAL })
-    dispatch({ type: UPDATE_GENERATE_NEW_WORD })
-    window.localStorage.setItem(`${country}-words-played`, JSON.stringify(wordsPlayed))
-  }
-
-  const clearWordsPlayed = () => {
-    dispatchOptions({ type: CLEAR_WORDS_PLAYED })
-    dispatchOptions({ type: UPDATE_WARN_MODAL })
-    succesNotification({ successMsg: 'Registro limpio' })
-  }
+  const { options: { endGameModal, warnModal, wordsPlayed }, dispatchOptions } = useContext(GameData)
+  const { setNewLetter, deleteLastField, finishAttempt } = useUpdateStates()
 
   const handleKeyPress = (e) => {
     if (dictionary[country].length === wordsPlayed.length) {
       dispatchOptions({ type: UPDATE_WARN_MODAL })
       return
     }
+
     if (endGameModal || warnModal) return
 
     const answersCopy = structuredClone(answers)
     const LAST_ANSWERS_INDEX = answersCopy.length - 1
-    const isCompleted = checkIfTheAttempIsCompleted({
-      arr: answersCopy,
-      index: currentAttempt
-    })
-    const isWinner = checkForWin({
-      userWord: answersCopy[currentAttempt],
-      wordToGuess: wordToGuess.word
-    })
+    const isCompleted = checkIfTheAttempIsCompleted({ arr: answersCopy, index: currentAttempt })
+    const isWinner = checkForWin({ userWord: answersCopy[currentAttempt], wordToGuess: wordToGuess.word })
 
     // check for winner or lost game
-    if (
-      (e.keyCode === 13 && isWinner) ||
-      (currentAttempt === LAST_ANSWERS_INDEX && isCompleted && e.keyCode === 13)
-    ) {
+    if ((e.keyCode === 13 && isWinner) || (currentAttempt === LAST_ANSWERS_INDEX && isCompleted && e.keyCode === 13)) {
       dispatchOptions({ type: UPDATE_IS_WINNER, payload: isWinner })
       setTimeout(() => {
         dispatchOptions({ type: UPDATE_ENDGAME_MODAL })
@@ -62,24 +39,13 @@ export function useBoardLogic () {
 
     // finish one attepm
     if (e.keyCode === 13 && isCompleted) {
-      findLettersPositions({
-        wordToGuess: wordToGuess.word.split(''),
-        currentWord: answers[currentAttempt],
-        attempt: currentAttempt,
-        answers: answersCopy
-      })
-      dispatch({ type: RESET_NEXT_FIELD })
-      dispatch({ type: UPDATE_ATTEMPT })
-      setAnswers(answersCopy)
+      finishAttempt({ answersCopy })
       return
     }
 
     // delete last field
     if (e.keyCode === 8) {
-      if (currentField === 0) return
-      answersCopy[currentAttempt][currentField - 1].letter = null
-      setAnswers(answersCopy)
-      dispatch({ type: GO_ONE_FIELD_BACK })
+      deleteLastField({ answersCopy })
     }
 
     // error attemp incomplete
@@ -102,9 +68,7 @@ export function useBoardLogic () {
 
     if (e.key.length > 1) return
 
-    answersCopy[currentAttempt][currentField].letter = e.key.toLowerCase()
-    setAnswers(answersCopy)
-    dispatch({ type: UPDATE_FIELD })
+    setNewLetter({ answersCopy, currentLetter: e.key.toLowerCase() })
   }
 
   useEffect(() => {
@@ -127,13 +91,6 @@ export function useBoardLogic () {
   useEffect(() => {
     window.localStorage.setItem('country', country)
   }, [])
-  return {
-    answers,
-    endGameModal,
-    isUserWinner,
-    currentAttempt,
-    warnModal,
-    resetAttempt,
-    clearWordsPlayed
-  }
+
+  return { answers }
 }
