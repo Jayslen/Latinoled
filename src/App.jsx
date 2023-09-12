@@ -3,6 +3,8 @@ import { GameBoard } from './routes/GameBoardPage'
 import { Home } from './routes/Home'
 import { Header } from './components/Header'
 import { UserGameDataProvider } from './context/userGameDataContext'
+import { GameDataProvider } from './context/gameDataContext'
+import { UserAnswerProvider } from './context/userAnswersContext'
 
 function App () {
   const router = createBrowserRouter([
@@ -22,9 +24,15 @@ function App () {
     }
   ])
   return (
-    <UserGameDataProvider>
-      <RouterProvider router={router} />
-    </UserGameDataProvider>
+    <GameDataProvider>
+      <UserGameDataProvider>
+        <UserAnswerProvider>
+
+          <RouterProvider router={router} />
+
+        </UserAnswerProvider>
+      </UserGameDataProvider>
+    </GameDataProvider>
   )
 }
 
