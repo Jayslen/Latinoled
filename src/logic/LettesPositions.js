@@ -5,12 +5,7 @@ import {
 } from '../constants/positionsIndex'
 import { getUserWord } from './userAnswersFunctions'
 
-export const findLettersPositions = ({
-  wordToGuess,
-  currentWord,
-  attempt,
-  answers
-}) => {
+export const findLettersPositions = ({ wordToGuess, currentWord, attempt, answers }) => {
   const data = []
   const userWord = getUserWord({ userWord: currentWord })
 
