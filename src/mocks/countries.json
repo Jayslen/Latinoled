@@ -1,22 +1,22 @@
 [
   {
     "country": "republica dominicana",
-    "image": "../../src/assets/images/dominican-republic.png",
+    "image": "https://i.ibb.co/TRZ2DB5/dominican-republic.png",
     "available": true
   },
   {
     "country": "colombia",
-    "image": "../../src/assets/images/colombia.png",
+    "image": "https://i.ibb.co/RzKvNn7/colombia.png",
     "available": false
   },
   {
     "country": "uruguay",
-    "image": "../../src/assets/images/uruguay.png",
+    "image": "https://i.ibb.co/3mH1pNB/uruguay.png",
     "available": false
   },
   {
     "country": "mexico",
-    "image": "../../src/assets/images/mexico.png",
+    "image": "https://i.ibb.co/nMRfbJm/mexico.png",
     "available": false
   }
 ]

@@ -20,7 +20,7 @@ export function Home () {
           <motion.img
             animate={{ scale: [0.5, 1], opacity: [0, 1] }}
             transition={{ type: 'spring' }}
-            src="../../src/assets/images/logo.png"
+            src="https://i.ibb.co/JkRcmBc/logo.png"
             alt=""
             className="w-16 h-16"
           />
