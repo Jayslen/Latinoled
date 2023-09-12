@@ -1,78 +1,48 @@
 import { createContext, useReducer } from 'react'
-import {
-  UPDATE_FIELD,
-  RESET_ATTEMPT,
-  RESET_NEXT_FIELD,
-  UPDATE_ATTEMPT,
-  GO_ONE_FIELD_BACK,
-  UPDATE_WORD,
-  UPDATE_COUNTRY
-} from '../constants/reducerTypes'
+import { CLEAR_WORDS_PLAYED, UPDATE_ENDGAME_MODAL, UPDATE_IS_WINNER, UPDATE_WARN_MODAL, UPDATE_WORDS_PLAYED } from '../constants/gameOptionsReducerTypes'
 
 export const GameData = createContext()
+const country = window.localStorage.getItem('country')
+const wordsInStorage = JSON.parse(localStorage.getItem(`${country}-words-played`))
+
 const initialState = {
-  wordToGuess: '',
-  country: 'republica dominicana',
-  currentAttempt: 0,
-  currentField: 0
+  endGameModal: false,
+  warnModal: false,
+  isUserWinner: false,
+  wordsPlayed: wordsInStorage?.length > 0 ? wordsInStorage : []
 }
 
 function reducer (state, action) {
   const { type, payload } = action
-  if (type === UPDATE_ATTEMPT) {
-    return {
-      ...state,
-      currentAttempt: state.currentAttempt + 1
-    }
+
+  if (type === UPDATE_ENDGAME_MODAL) {
+    return { ...state, endGameModal: !state.endGameModal }
   }
 
-  if (type === UPDATE_FIELD) {
-    return {
-      ...state,
-      currentField: state.currentField + 1
-    }
+  if (type === UPDATE_WARN_MODAL) {
+    return { ...state, warnModal: !state.warnModal }
   }
 
-  if (type === RESET_ATTEMPT) {
-    return {
-      ...state,
-      currentAttempt: 0
-    }
+  if (type === UPDATE_IS_WINNER) {
+    return { ...state, isUserWinner: payload }
   }
 
-  if (type === RESET_NEXT_FIELD) {
-    return {
-      ...state,
-      currentField: 0
-    }
-  }
-  if (type === GO_ONE_FIELD_BACK) {
-    return {
-      ...state,
-      currentField: state.currentField - 1
-    }
-  }
-  if (type === UPDATE_WORD) {
-    return {
-      ...state,
-      wordToGuess: payload
-    }
+  if (type === UPDATE_WORDS_PLAYED) {
+    return { ...state, wordsPlayed: [...state.wordsPlayed, payload] }
   }
 
-  if (type === UPDATE_COUNTRY) {
-    return {
-      ...state,
-      country: payload
-    }
+  if (type === CLEAR_WORDS_PLAYED) {
+    return { ...state, wordsPlayed: [] }
   }
 }
 
 export function GameDataProvider ({ children }) {
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const [options, dispatchOptions] = useReducer(reducer, initialState)
 
   return (
-    <GameData.Provider value={{ state, dispatch }}>
-      {children}
-    </GameData.Provider>
+      <GameData.Provider value={{ options, dispatchOptions }}>
+        {children}
+      </GameData.Provider>
+
   )
 }
