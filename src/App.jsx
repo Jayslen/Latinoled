@@ -29,7 +29,7 @@ function App () {
         <UserAnswerProvider>
 
           <RouterProvider router={router} />
-
+          <p className='absolute bottom-0 text-light-mode-text dark:text-dark-mode-text text-xs p-2 font-bold'>Test Version 1.0</p>
         </UserAnswerProvider>
       </UserGameDataProvider>
     </GameDataProvider>
