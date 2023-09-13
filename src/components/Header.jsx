@@ -14,7 +14,9 @@ export function Header () {
           <Link to={'/'}>Inicio</Link>
         </h2>
         <div className="flex gap-2">
-          <IconBrandGithubFilled />
+          <a href="https://github.com/Jayslen/Latinoled" target='_blank' className='hover:scale-125 transition-transform' rel="noreferrer">
+            <IconBrandGithubFilled />
+          </a>
           <IconAlertSquareFilled />
           <IconShieldLockFilled />
           <ThemeButton />
