@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Example } from '../components/home/Example'
 import { FlagsContainer } from '../components/home/Flags'
+import { homeModalData } from '../constants/MiniBoardData'
+export { homeModalData } from '../constants/MiniBoardData'
 
 export function Home () {
   return (
@@ -24,7 +26,7 @@ export function Home () {
             alt=""
             className="w-16 h-16"
           />
-          <p className="text-md px-4 animate-fade md:text-lg md:p-0">
+          <p className="text-md px-4 animate-fade md:text-lg md:p-0 max-w-xl">
             <strong>Latinoled</strong> es un emocionante juego de palabras
             inspirado en el popular juego Wordle, pero con un toque cultural que
             te permite sumergirte en la riqueza lingüística de América Latina.
@@ -33,7 +35,7 @@ export function Home () {
             al juego.
           </p>
 
-          <Example />
+          <Example board={homeModalData} />
           <FlagsContainer/>
 
           <motion.div

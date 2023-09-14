@@ -1,6 +1,5 @@
 import { useVirtualKey } from '../hook/useVirtualKeyLogic'
 import { motion } from 'framer-motion'
-import { IconCheck, IconBackspace } from '@tabler/icons-react'
 
 const firsLine = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P']
 const secondLine = ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L']
@@ -47,7 +46,6 @@ export function Keyboard () {
         </ul>
         <div className='w-[190px] sm:w-[250px] flex justify-between gap-1'>
           <Buttons functionality={'enter'} handleClick={handlePressKey}>
-            {/* <IconCheck/> */}
             Enter
           </Buttons>
           <Buttons functionality={'delete'} handleClick={handlePressKey}>
@@ -62,7 +60,7 @@ export function Keyboard () {
 function KeyBoardKey ({ letter, handleClick }) {
   return (
     <motion.li
-      whileTap={{ scale: 0.7 }}
+      whileTap={{ scale: 0.9 }}
       className="dark:bg-dark-mode-text dark:text-light-mode-text text-dark-mode-text bg-light-mode-text  w-7 h-10 sm:w-9 sm:h-12 rounded grid place-content-center text-xl font-semibold cursor-pointer uppercase select-none"
       onClick={handleClick}
     >
@@ -73,7 +71,7 @@ function KeyBoardKey ({ letter, handleClick }) {
 
 function Buttons ({ children, functionality, handleClick }) {
   return (
-    <motion.button whileTap={{ scale: 0.7 }} className='dark:bg-dark-mode-text dark:text-light-mode-text text-dark-mode-text bg-light-mode-text w-full rounded py-3 grid place-content-center' data-functionality={functionality} onClick={handleClick}>
+    <motion.button whileTap={{ scale: 0.9 }} className='dark:bg-dark-mode-text dark:text-light-mode-text text-dark-mode-text bg-light-mode-text w-full rounded py-3 grid place-content-center' data-functionality={functionality} onClick={handleClick}>
     {children}
   </motion.button>
   )
