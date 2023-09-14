@@ -1,24 +1,18 @@
 import { motion } from 'framer-motion'
 
-export function Example () {
-  const row = [
-    { letter: 'M', delayLetter: 0.4, delayDiv: 2.0 },
-    { letter: 'A', delayLetter: 0.6, delayDiv: 2.2 },
-    { letter: 'N', delayLetter: 0.8, delayDiv: 2.4 },
-    { letter: 'G', delayLetter: 1, delayDiv: 2.6 },
-    { letter: 'U', delayLetter: 1.2, delayDiv: 2.8 }
-  ]
+export function Example ({ board }) {
   return (
     <div
       className="flex justify-center gap-2 w-[320px] animate-fade"
     >
-      {row.map((item, index) => {
+      {board.map((item, index) => {
         return (
           <motion.div
             key={index}
             initial={{ border: 'solid 2px rgb(58,58,60)' }}
             animate={{
-              backgroundColor: 'rgb(83,141,78)',
+              backgroundColor: `${item.color}`,
+              color: 'white',
               rotateX: '360deg',
               borderStyle: 'none'
             }}
