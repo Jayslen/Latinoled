@@ -15,7 +15,6 @@ export function useBoardLogic () {
   const { state: { currentField, wordToGuess, currentAttempt, country, generateNewWord }, dispatch } = useContext(UserGameData)
   const { options: { endGameModal, warnModal, wordsPlayed }, dispatchOptions } = useContext(GameData)
   const { setNewLetter, deleteLastField, finishAttempt, checkWinLostGame } = useUpdateStates()
-  const wordsInStorage = JSON.parse(localStorage.getItem(`${country}-words-played`))
 
   const handleKeyPress = (e) => {
     if (dictionary[country].length === wordsPlayed.length) {

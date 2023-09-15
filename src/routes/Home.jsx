@@ -3,7 +3,6 @@ import { motion } from 'framer-motion'
 import { Example } from '../components/home/Example'
 import { FlagsContainer } from '../components/home/Flags'
 import { homeModalData } from '../constants/MiniBoardData'
-export { homeModalData } from '../constants/MiniBoardData'
 
 export function Home () {
   return (
