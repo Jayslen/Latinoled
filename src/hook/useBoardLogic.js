@@ -2,8 +2,8 @@ import { useEffect, useContext } from 'react'
 import { UserAnswersContext } from '../context/userAnswersContext'
 import { UserGameData } from '../context/userGameDataContext'
 import { GameData } from '../context/gameDataContext'
-import { UPDATE_WORD } from '../constants/reducerTypes'
-import { UPDATE_ENDGAME_MODAL, UPDATE_IS_WINNER, UPDATE_WARN_MODAL, UPDATE_WORDS_PLAYED } from '../constants/gameOptionsReducerTypes'
+import { SAVE_ATTEMPT_STORAGE, SAVE_FIELD_STORAGE, UPDATE_ATTEMPT, UPDATE_FIELD, UPDATE_WORD } from '../constants/reducerTypes'
+import { UPDATE_WARN_MODAL, UPDATE_WORDS_PLAYED } from '../constants/gameOptionsReducerTypes'
 import { getNewWord } from '../services/getNewWord'
 import { checkForWin, checkIfTheAttempIsCompleted } from '../logic/userAnswersFunctions'
 import { errorNotification } from '../components/notifications/tostifyNotification'
@@ -11,10 +11,11 @@ import dictionary from '../mocks/Diccionary.json'
 import { useUpdateStates } from './useUpdateGloblaStates'
 
 export function useBoardLogic () {
-  const { answers } = useContext(UserAnswersContext)
+  const { answers, setAnswers } = useContext(UserAnswersContext)
   const { state: { currentField, wordToGuess, currentAttempt, country, generateNewWord }, dispatch } = useContext(UserGameData)
   const { options: { endGameModal, warnModal, wordsPlayed }, dispatchOptions } = useContext(GameData)
-  const { setNewLetter, deleteLastField, finishAttempt } = useUpdateStates()
+  const { setNewLetter, deleteLastField, finishAttempt, checkWinLostGame } = useUpdateStates()
+  const wordsInStorage = JSON.parse(localStorage.getItem(`${country}-words-played`))
 
   const handleKeyPress = (e) => {
     if (dictionary[country].length === wordsPlayed.length) {
@@ -31,10 +32,7 @@ export function useBoardLogic () {
 
     // check for winner or lost game
     if ((e.keyCode === 13 && isWinner) || (currentAttempt === LAST_ANSWERS_INDEX && isCompleted && e.keyCode === 13)) {
-      dispatchOptions({ type: UPDATE_IS_WINNER, payload: isWinner })
-      setTimeout(() => {
-        dispatchOptions({ type: UPDATE_ENDGAME_MODAL })
-      }, 700)
+      checkWinLostGame({ isUserWinner: isWinner })
     }
 
     // finish one attepm
@@ -89,6 +87,14 @@ export function useBoardLogic () {
 
   useEffect(() => {
     window.localStorage.setItem('country', country)
+    const matchStorage = JSON.parse(localStorage.getItem('savedMatch'))
+
+    if (matchStorage) {
+      setAnswers(matchStorage.savedAnswers)
+      dispatch({ type: SAVE_ATTEMPT_STORAGE, payload: matchStorage.savedAttempt })
+      dispatch({ type: SAVE_FIELD_STORAGE, payload: matchStorage.savedField })
+      dispatch({ type: UPDATE_WORD, payload: matchStorage.savedWord })
+    }
   }, [])
 
   return { answers }

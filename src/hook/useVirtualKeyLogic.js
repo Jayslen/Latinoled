@@ -2,7 +2,7 @@ import { UserGameData } from '../context/userGameDataContext'
 import { GameData } from '../context/gameDataContext'
 import { UserAnswersContext } from '../context/userAnswersContext'
 import dictionary from '../mocks/Diccionary.json'
-import { UPDATE_ENDGAME_MODAL, UPDATE_IS_WINNER, UPDATE_WARN_MODAL } from '../constants/gameOptionsReducerTypes'
+import { UPDATE_WARN_MODAL } from '../constants/gameOptionsReducerTypes'
 import { useContext } from 'react'
 import { RESET_NEXT_FIELD, UPDATE_ATTEMPT } from '../constants/reducerTypes'
 import { checkForWin, checkIfTheAttempIsCompleted } from '../logic/userAnswersFunctions'
@@ -14,7 +14,7 @@ export function useVirtualKey () {
   const { answers, setAnswers } = useContext(UserAnswersContext)
   const { state: { currentField, wordToGuess, currentAttempt, country }, dispatch } = useContext(UserGameData)
   const { options: { endGameModal, warnModal, isUserWinner, wordsPlayed }, dispatchOptions } = useContext(GameData)
-  const { setNewLetter, deleteLastField } = useUpdateStates()
+  const { setNewLetter, deleteLastField, checkWinLostGame } = useUpdateStates()
 
   const handlePressKey = (e) => {
     const currentLetter = e.target.textContent.toLowerCase()
@@ -29,14 +29,11 @@ export function useVirtualKey () {
     const isWinner = checkForWin({ userWord: answersCopy[currentAttempt], wordToGuess: wordToGuess.word })
 
     // check winner or losser
-    if (
-      (currentLetter === 'enter' && isWinner) ||
-    (currentAttempt === LAST_ANSWERS_INDEX && isCompleted && currentLetter === 'enter')
+    if ((currentLetter === 'enter' && isWinner) ||
+        (currentAttempt === LAST_ANSWERS_INDEX &&
+        isCompleted && currentLetter === 'enter')
     ) {
-      dispatchOptions({ type: UPDATE_IS_WINNER, payload: isWinner })
-      setTimeout(() => {
-        dispatchOptions({ type: UPDATE_ENDGAME_MODAL })
-      }, 700)
+      checkWinLostGame({ isUserWinner: isWinner })
     }
 
     // finish one attepmt
