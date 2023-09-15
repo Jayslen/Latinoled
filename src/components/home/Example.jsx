@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 export function Example ({ board }) {
   return (
     <div
-      className="flex justify-center gap-2 w-[320px] animate-fade"
+      className="flex justify-center gap-2 w-[320px] animate-fade "
     >
       {board.map((item, index) => {
         return (
@@ -12,7 +12,6 @@ export function Example ({ board }) {
             initial={{ border: 'solid 2px rgb(58,58,60)' }}
             animate={{
               backgroundColor: `${item.color}`,
-              color: 'white',
               rotateX: '360deg',
               borderStyle: 'none'
             }}

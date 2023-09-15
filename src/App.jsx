@@ -5,6 +5,7 @@ import { Header } from './components/Header'
 import { UserGameDataProvider } from './context/userGameDataContext'
 import { GameDataProvider } from './context/gameDataContext'
 import { UserAnswerProvider } from './context/userAnswersContext'
+import { ToastContainer } from 'react-toastify'
 
 function App () {
   const router = createBrowserRouter([
@@ -27,7 +28,18 @@ function App () {
     <GameDataProvider>
       <UserGameDataProvider>
         <UserAnswerProvider>
-
+        <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
           <RouterProvider router={router} />
           <div className='absolute bottom-0 text-light-mode-text dark:text-dark-mode-text text-sm p-2 font-bold'>
             <p>Test Version 1.0</p>

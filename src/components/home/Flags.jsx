@@ -1,6 +1,5 @@
 import { useContext } from 'react'
 import { motion } from 'framer-motion'
-import { ToastContainer } from 'react-toastify'
 import { UserGameData } from '../../context/userGameDataContext'
 import { UPDATE_COUNTRY } from '../../constants/reducerTypes'
 import countries from '../../mocks/countries.json'
@@ -46,18 +45,7 @@ export function FlagsContainer () {
       <p>
         Pais seleccionado <strong className="capitalize">{state.country}</strong>
       </p>
-      <ToastContainer
-        position="top-right"
-        autoClose={1000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss={false}
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
+
     </div>
   )
 }
