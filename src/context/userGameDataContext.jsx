@@ -7,7 +7,9 @@ import {
   GO_ONE_FIELD_BACK,
   UPDATE_WORD,
   UPDATE_COUNTRY,
-  UPDATE_GENERATE_NEW_WORD
+  UPDATE_GENERATE_NEW_WORD,
+  SAVE_ATTEMPT_STORAGE,
+  SAVE_FIELD_STORAGE
 } from '../constants/reducerTypes'
 
 export const UserGameData = createContext()
@@ -21,6 +23,7 @@ const initialState = {
 
 function reducer (state, action) {
   const { type, payload } = action
+
   if (type === UPDATE_ATTEMPT) {
     return {
       ...state,
@@ -32,6 +35,20 @@ function reducer (state, action) {
     return {
       ...state,
       currentField: state.currentField + 1
+    }
+  }
+
+  if (type === SAVE_ATTEMPT_STORAGE) {
+    return {
+      ...state,
+      currentAttempt: payload
+    }
+  }
+
+  if (type === SAVE_FIELD_STORAGE) {
+    return {
+      ...state,
+      currentField: payload
     }
   }
 
