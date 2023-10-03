@@ -1,14 +1,18 @@
-import { IconAlertSquareFilled, IconBrandGithubFilled } from '@tabler/icons-react'
-import { ThemeButton } from './ToggleThemeButton'
-import { Link, Outlet } from 'react-router-dom'
 import { useState } from 'react'
+import { Link, Outlet } from 'react-router-dom'
+import { motion, AnimatePresence } from 'framer-motion'
+import {
+  IconAlertSquareFilled,
+  IconBrandGithubFilled
+} from '@tabler/icons-react'
+import { ThemeButton } from './ToggleThemeButton'
 import { RulesModal } from './RulesModal'
-import { AnimatePresence } from 'framer-motion'
+import { headerIconsAnimation } from '../constants/animations'
 
 export function Header () {
   const [rulesModal, setRulesModal] = useState()
   const handleModal = () => {
-    setRulesModal(prev => !prev)
+    setRulesModal((prev) => !prev)
   }
 
   return (
@@ -18,16 +22,27 @@ export function Header () {
           <Link to={'/'}>Inicio</Link>
         </h2>
         <div className="flex gap-2">
-          <a href="https://github.com/Jayslen/Latinoled" target='_blank' className='hover:scale-125 transition-all' rel="noreferrer">
-            <IconBrandGithubFilled/>
-          </a>
-            <IconAlertSquareFilled onClick={handleModal} className='hover:scale-125 transition-all cursor-pointer' />
-          <ThemeButton/>
+          <motion.a
+            whileTap='tap'
+            whileHover={'hover'}
+            variants={headerIconsAnimation}
+            href="https://github.com/Jayslen/Latinoled"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <IconBrandGithubFilled />
+          </motion.a>
+
+          <motion.div whileTap="tap" whileHover={'hover'} variants={headerIconsAnimation}>
+            <IconAlertSquareFilled
+              onClick={handleModal}
+              className="cursor-pointer"
+            />
+          </motion.div>
+          <ThemeButton />
         </div>
       </header>
-      <AnimatePresence>
-            {rulesModal && <RulesModal closeModal={handleModal}/>}
-      </AnimatePresence>
+      <AnimatePresence>{rulesModal && <RulesModal />}</AnimatePresence>
       <Outlet />
     </>
   )

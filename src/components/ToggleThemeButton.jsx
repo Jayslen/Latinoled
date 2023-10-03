@@ -1,6 +1,6 @@
+import { motion, AnimatePresence } from 'framer-motion'
 import { IconSunFilled, IconMoonFilled } from '@tabler/icons-react'
 import { useToggleTheme } from '../hook/useToggleTheme'
-import { motion, AnimatePresence } from 'framer-motion'
 
 function LightMode () {
   return (
