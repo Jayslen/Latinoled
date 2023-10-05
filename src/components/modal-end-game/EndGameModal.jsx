@@ -5,11 +5,12 @@ import { LostGameData } from './LostGameText'
 import { MiniBoard } from './MiniBoard'
 import { Backdrop } from '../Backdrop'
 
-export function GameMoldal ({ resetAttempt, isWinner, attempt, board }) {
+export function GameMoldal ({ resetAttempt, isWinner, attempt, board, updateStreak }) {
   const { state: { wordToGuess } } = useContext(UserGameData)
   const handleKeyPress = (e) => {
     if (e.keyCode === 13) {
       resetAttempt()
+      updateStreak({ isUserWinner: isWinner })
     }
   }
 

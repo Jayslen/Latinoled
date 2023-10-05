@@ -11,15 +11,16 @@ import { useUpdateStates } from '../hook/useUpdateGloblaStates'
 
 export function GameBoard () {
   const { answers } = useContext(UserAnswersContext)
-  const { options: { endGameModal, isUserWinner, warnModal } } = useContext(GameData)
-  const { state: { currentAttempt } } = useContext(UserGameData)
-  const { clearWordsPlayed, resetAttempt } = useUpdateStates()
+  const { gameInfo: { endGameModal, isUserWinner, warnModal } } = useContext(GameData)
+  const { state: { currentAttempt, streak } } = useContext(UserGameData)
+  const { clearWordsPlayed, resetAttempt, updateStreak } = useUpdateStates()
 
   const miniBoard = answers.slice(0, currentAttempt)
   return (
     <>
       <main className="flex justify-center dark:text-white">
         <section className="flex flex-col gap-2 w-[310px] px-4 sm:w-[350px] sm:p-0">
+              <span className='font-bold text-lg italic'>Racha : {streak}</span>
               <Board />
               <Keyboard />
         </section>
@@ -31,6 +32,7 @@ export function GameBoard () {
             isWinner={isUserWinner}
             attempt={currentAttempt}
             board={miniBoard}
+            updateStreak={updateStreak}
           />
         )}
         {warnModal && <WarnModal clear={clearWordsPlayed} />}

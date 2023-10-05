@@ -17,7 +17,7 @@ export function Board () {
                 return (
                   <div
                     key={index}
-                    className={`text-light-mode-text w-full h-full border-[#3a3a3c] flex justify-center items-center font-bold text-2xl uppercase rounded-md border-2  transition-colors duration-500 animate-duration-700 animate-once animate-ease-linear dark:text-dark-mode-text ${
+                    className={`text-light-mode-text w-full h-full border-[#3a3a3c] flex justify-center items-center font-bold text-2xl uppercase rounded-md border-2 transition-colors duration-500  dark:text-dark-mode-text ${
                       data.status === IS_SAME_POSITION
                         ? 'bg-green-check border-none text-white'
                         : data.status === IS_INCLUDED

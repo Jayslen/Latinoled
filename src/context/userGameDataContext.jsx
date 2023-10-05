@@ -9,7 +9,9 @@ import {
   UPDATE_COUNTRY,
   UPDATE_GENERATE_NEW_WORD,
   SAVE_ATTEMPT_STORAGE,
-  SAVE_FIELD_STORAGE
+  SAVE_FIELD_STORAGE,
+  RESET_STREAK,
+  UPDATE_STREAK
 } from '../constants/reducerTypes'
 
 export const UserGameData = createContext()
@@ -18,78 +20,88 @@ const initialState = {
   country: 'republica dominicana',
   currentAttempt: 0,
   currentField: 0,
+  streak: 0,
   generateNewWord: true
 }
 
 function reducer (state, action) {
   const { type, payload } = action
 
-  if (type === UPDATE_ATTEMPT) {
-    return {
-      ...state,
-      currentAttempt: state.currentAttempt + 1
-    }
-  }
+  switch (type) {
+    case UPDATE_ATTEMPT:
+      return {
+        ...state,
+        currentAttempt: state.currentAttempt + 1
+      }
 
-  if (type === UPDATE_FIELD) {
-    return {
-      ...state,
-      currentField: state.currentField + 1
-    }
-  }
+    case UPDATE_FIELD:
+      return {
+        ...state,
+        currentField: state.currentField + 1
+      }
 
-  if (type === SAVE_ATTEMPT_STORAGE) {
-    return {
-      ...state,
-      currentAttempt: payload
-    }
-  }
+    case SAVE_ATTEMPT_STORAGE:
+      return {
+        ...state,
+        currentAttempt: payload
+      }
 
-  if (type === SAVE_FIELD_STORAGE) {
-    return {
-      ...state,
-      currentField: payload
-    }
-  }
+    case SAVE_FIELD_STORAGE:
+      return {
+        ...state,
+        currentField: payload
+      }
 
-  if (type === RESET_ATTEMPT) {
-    return {
-      ...state,
-      currentAttempt: 0
-    }
-  }
+    case RESET_ATTEMPT:
+      return {
+        ...state,
+        currentAttempt: 0
+      }
 
-  if (type === RESET_NEXT_FIELD) {
-    return {
-      ...state,
-      currentField: 0
-    }
-  }
-  if (type === GO_ONE_FIELD_BACK) {
-    return {
-      ...state,
-      currentField: state.currentField - 1
-    }
-  }
-  if (type === UPDATE_WORD) {
-    return {
-      ...state,
-      wordToGuess: payload
-    }
-  }
+    case RESET_NEXT_FIELD:
+      return {
+        ...state,
+        currentField: 0
+      }
 
-  if (type === UPDATE_COUNTRY) {
-    return {
-      ...state,
-      country: payload
-    }
-  }
+    case GO_ONE_FIELD_BACK:
+      return {
+        ...state,
+        currentField: state.currentField - 1
+      }
 
-  if (type === UPDATE_GENERATE_NEW_WORD) {
-    return {
-      ...state,
-      generateNewWord: !state.generateNewWord
-    }
+    case UPDATE_WORD:
+      return {
+        ...state,
+        wordToGuess: payload
+      }
+
+    case UPDATE_COUNTRY:
+      return {
+        ...state,
+        country: payload
+      }
+
+    case UPDATE_GENERATE_NEW_WORD:
+      return {
+        ...state,
+        generateNewWord: !state.generateNewWord
+      }
+
+    case UPDATE_STREAK:
+      return {
+        ...state,
+        streak: state.streak + 1
+      }
+
+    case RESET_STREAK:
+      return {
+        ...state,
+        streak: 0
+      }
+
+    default:
+      return state
   }
 }
 
