@@ -7,7 +7,7 @@ import { errorNotification, succesNotification } from '../notifications/tostifyN
 import 'react-toastify/dist/ReactToastify.css'
 
 export function FlagsContainer () {
-  const { state, dispatch } = useContext(UserGameData)
+  const { state: { country }, dispatch } = useContext(UserGameData)
 
   return (
     <div className="w-[320px] flex flex-wrap gap-2 justify-center">
@@ -43,7 +43,7 @@ export function FlagsContainer () {
         )
       })}
       <p>
-        Pais seleccionado <strong className="capitalize">{state.country}</strong>
+        Pais seleccionado <strong className="capitalize">{country}</strong>
       </p>
 
     </div>

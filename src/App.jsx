@@ -28,21 +28,21 @@ function App () {
     <GameDataProvider>
       <UserGameDataProvider>
         <UserAnswerProvider>
-        <ToastContainer
-        position="top-right"
-        autoClose={1000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss={false}
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
+          <ToastContainer
+            position="top-right"
+            autoClose={1000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss={false}
+            draggable
+            pauseOnHover
+            theme="dark"
+          />
           <RouterProvider router={router} />
-          <div className='absolute bottom-0 text-light-mode-text dark:text-dark-mode-text text-sm p-2 font-bold'>
-            <p>Test Version 1.0</p>
+          <div className="absolute bottom-0 text-light-mode-text dark:text-dark-mode-text text-sm p-2 font-bold">
+            <p>Test Version 1.1</p>
             <p>Created by Jayslen Rojas</p>
           </div>
         </UserAnswerProvider>

@@ -5,8 +5,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        Poppins: 'Poppins, sans-serif',
-        TripSans: ['trip, sans-serif']
+        Poppins: 'Poppins, sans-serif'
       },
       backgroundColor: {
         'green-check': 'rgb(83,141,78)',
@@ -23,5 +22,5 @@ export default {
       }
     }
   },
-  plugins: [require('tailwindcss-animated')]
+  plugins: []
 }

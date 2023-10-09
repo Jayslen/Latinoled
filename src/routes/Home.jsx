@@ -25,7 +25,7 @@ export function Home () {
             alt=""
             className="w-16 h-16"
           />
-          <p className="text-md px-4 animate-fade md:text-lg md:p-0 max-w-xl">
+          <p className="text-md px-4 max-w-xl md:text-lg md:p-0 ">
             <strong>Latinoled</strong> es un emocionante juego de palabras
             inspirado en el popular juego Wordle, pero con un toque cultural que
             te permite sumergirte en la riqueza lingüística de América Latina.
