@@ -10,7 +10,7 @@ export function Keyboard () {
 
   return (
     <>
-      <div className="grid grid-rows-3 place-content-center place-items-center gap-2 text-white font-Poppins w-full">
+      <div className="grid grid-rows-3 place-content-center place-items-center gap-2 text-white w-full">
         <ul className="flex gap-1 sm:gap-1.5">
           {firsLine.map((value, index) => {
             return (
@@ -44,7 +44,7 @@ export function Keyboard () {
             )
           })}
         </ul>
-        <div className='w-[190px] sm:w-[250px] flex justify-between gap-1'>
+        <div className="w-[190px] sm:w-[250px] flex justify-between gap-1">
           <Buttons functionality={'enter'} handleClick={handlePressKey}>
             Enter
           </Buttons>
@@ -71,8 +71,13 @@ function KeyBoardKey ({ letter, handleClick }) {
 
 function Buttons ({ children, functionality, handleClick }) {
   return (
-    <motion.button whileTap={{ scale: 0.9 }} className='dark:bg-dark-mode-text dark:text-light-mode-text text-dark-mode-text bg-light-mode-text w-full rounded py-3 grid place-content-center' data-functionality={functionality} onClick={handleClick}>
-    {children}
-  </motion.button>
+    <motion.button
+      whileTap={{ scale: 0.9 }}
+      className="dark:bg-dark-mode-text dark:text-light-mode-text text-dark-mode-text bg-light-mode-text w-full rounded py-3 grid place-content-center"
+      data-functionality={functionality}
+      onClick={handleClick}
+    >
+      {children}
+    </motion.button>
   )
 }

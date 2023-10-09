@@ -6,7 +6,7 @@ export function Board () {
 
   return (
     <>
-      <section className="h-80 w-full flex flex-col items-center gap-2 font-Poppins sm:h-[400px]">
+      <section className="h-80 w-full flex flex-col items-center gap-2 sm:h-[400px]">
         {answers.map((rows, indexRow) => {
           return (
             <article
