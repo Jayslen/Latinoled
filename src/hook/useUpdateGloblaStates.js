@@ -37,6 +37,7 @@ export function useUpdateStates () {
   const { gameInfo: { wordsPlayed, isUserWinner }, dispatchGameInfo } = useContext(GameData)
   const isFirsRender = useRef(true)
 
+  // helpers
   const updateStats = () => {
     if (isUserWinner) {
       dispatchUserData({ type: UPDATE_STREAK })
@@ -46,6 +47,16 @@ export function useUpdateStates () {
     dispatchUserData({ type: UPDATE_MAX_STREAK })
     dispatchUserData({ type: UPDATE_WINS, payload: isUserWinner })
     dispatchUserData({ type: UPDATE_TRIES })
+  }
+
+  const lettersPosition = (answersCopy) => {
+    findLettersPositions({
+      wordToGuess: wordToGuess.word.split(''),
+      currentWord: answers[currentAttempt],
+      attempt: currentAttempt,
+      answers: answersCopy
+    })
+    setAnswers(answersCopy)
   }
 
   const resetAttempt = () => {
@@ -88,12 +99,7 @@ export function useUpdateStates () {
   }
 
   const finishAttempt = ({ answersCopy }) => {
-    findLettersPositions({
-      wordToGuess: wordToGuess.word.split(''),
-      currentWord: answers[currentAttempt],
-      attempt: currentAttempt,
-      answers: answersCopy
-    })
+    lettersPosition(answersCopy)
     dispatchUserData({ type: RESET_NEXT_FIELD })
     dispatchUserData({ type: UPDATE_ATTEMPT })
     localStorage.setItem(
@@ -105,10 +111,10 @@ export function useUpdateStates () {
         savedWord: wordToGuess
       })
     )
-    setAnswers(answersCopy)
   }
 
-  const checkWinLostGame = ({ isUserWinner }) => {
+  const checkWinLostGame = ({ isUserWinner, answersCopy }) => {
+    lettersPosition(answersCopy)
     dispatchGameInfo({ type: UPDATE_IS_WINNER, payload: isUserWinner })
     setTimeout(() => {
       dispatchGameInfo({ type: UPDATE_ENDGAME_MODAL })

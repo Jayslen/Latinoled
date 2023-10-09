@@ -29,7 +29,7 @@ export function useBoardLogic () {
 
     // check for winner or lost game
     if ((e.keyCode === 13 && isWinner) || (currentAttempt === LAST_ATTEMPT && isCompleted && e.keyCode === 13)) {
-      checkWinLostGame({ isUserWinner: isWinner })
+      checkWinLostGame({ isUserWinner: isWinner, answersCopy })
       return
     }
 

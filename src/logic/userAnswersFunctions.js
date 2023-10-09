@@ -14,12 +14,3 @@ export const checkForWin = ({ wordToGuess, userWord }) => {
   const word = getUserWord({ userWord })
   return wordToGuess.toLowerCase() === word.join('').toLowerCase()
 }
-
-export const checkAnswersStorage = ({ storage }) => {
-  if (!storage) return
-  for (let i = 0; i < storage.length; i++) {
-    if (storage[i].includes(null)) {
-      return true
-    }
-  }
-}

@@ -5,9 +5,9 @@ import {
 } from '../constants/positionsIndex'
 import { getUserWord } from './userAnswersFunctions'
 
-export const findLettersPositions = ({ wordToGuess, currentWord, attempt, answers }) => {
+export const findLettersPositions = ({ wordToGuess, attempt, answers }) => {
   const data = []
-  const userWord = getUserWord({ userWord: currentWord })
+  const userWord = getUserWord({ userWord: answers[attempt] })
 
   for (let i = 0; i < wordToGuess.length; i++) {
     if (userWord[i] === wordToGuess[i]) {
