@@ -11,7 +11,11 @@ import {
   SAVE_ATTEMPT_STORAGE,
   SAVE_FIELD_STORAGE,
   RESET_STREAK,
-  UPDATE_STREAK
+  UPDATE_STREAK,
+  UPDATE_MAX_STREAK,
+  UPDATE_TRIES,
+  UPDATE_WINS,
+  UPDATE_WINS_STORAGE
 } from '../constants/reducerTypes'
 
 export const UserGameData = createContext()
@@ -21,6 +25,9 @@ const initialState = {
   currentAttempt: 0,
   currentField: 0,
   streak: 0,
+  tries: 0,
+  winRate: 0,
+  maxStreak: 0,
   generateNewWord: true
 }
 
@@ -99,17 +106,36 @@ function reducer (state, action) {
         ...state,
         streak: 0
       }
-
+    case UPDATE_MAX_STREAK:
+      return {
+        ...state,
+        maxStreak: payload || (state.streak > state.maxStreak ? state.streak : state.maxStreak)
+      }
+    case UPDATE_WINS:
+      return {
+        ...state,
+        winRate: payload ? state.winRate + 1 : state.winRate
+      }
+    case UPDATE_TRIES:
+      return {
+        ...state,
+        tries: payload || state.tries + 1
+      }
+    case UPDATE_WINS_STORAGE:
+      return {
+        ...state,
+        winRate: payload
+      }
     default:
       return state
   }
 }
 
 export function UserGameDataProvider ({ children }) {
-  const [state, dispatch] = useReducer(reducer, initialState)
+  const [userData, dispatchUserData] = useReducer(reducer, initialState)
 
   return (
-    <UserGameData.Provider value={{ state, dispatch }}>
+    <UserGameData.Provider value={{ userData, dispatchUserData }}>
       {children}
     </UserGameData.Provider>
   )

@@ -37,10 +37,10 @@ function reducer (state, action) {
 }
 
 export function GameDataProvider ({ children }) {
-  const [options, dispatchOptions] = useReducer(reducer, initialState)
+  const [gameInfo, dispatchGameInfo] = useReducer(reducer, initialState)
 
   return (
-      <GameData.Provider value={{ options, dispatchOptions }}>
+      <GameData.Provider value={{ gameInfo, dispatchGameInfo }}>
         {children}
       </GameData.Provider>
 
