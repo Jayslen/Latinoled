@@ -32,7 +32,7 @@ export function useVirtualKey () {
         (currentAttempt === LAST_ATTEMPT &&
         isCompleted && currentLetter === 'enter')
     ) {
-      checkWinLostGame({ isUserWinner: isWinner })
+      checkWinLostGame({ isUserWinner: isWinner, answersCopy })
       return
     }
 
