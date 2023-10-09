@@ -2,35 +2,34 @@ import { useEffect, useContext } from 'react'
 import { UserAnswersContext } from '../context/userAnswersContext'
 import { UserGameData } from '../context/userGameDataContext'
 import { GameData } from '../context/gameDataContext'
-import { SAVE_ATTEMPT_STORAGE, SAVE_FIELD_STORAGE, UPDATE_WORD } from '../constants/reducerTypes'
-import { UPDATE_WARN_MODAL, UPDATE_WORDS_PLAYED } from '../constants/gameOptionsReducerTypes'
-import { getNewWord } from '../services/getNewWord'
+import { useUpdateStates } from './useUpdateGloblaStates'
+import { UPDATE_WARN_MODAL } from '../constants/gameOptionsReducerTypes'
 import { checkForWin, checkIfTheAttempIsCompleted } from '../logic/userAnswersFunctions'
 import { errorNotification } from '../components/notifications/tostifyNotification'
 import dictionary from '../mocks/Diccionary.json'
-import { useUpdateStates } from './useUpdateGloblaStates'
 
 export function useBoardLogic () {
-  const { answers, setAnswers } = useContext(UserAnswersContext)
-  const { state: { currentField, wordToGuess, currentAttempt, country, generateNewWord }, dispatch } = useContext(UserGameData)
-  const { options: { endGameModal, warnModal, wordsPlayed }, dispatchOptions } = useContext(GameData)
+  const { answers } = useContext(UserAnswersContext)
+  const { userData: { currentField, wordToGuess, currentAttempt, country } } = useContext(UserGameData)
+  const { gameInfo: { endGameModal, warnModal, wordsPlayed }, dispatchGameInfo } = useContext(GameData)
   const { setNewLetter, deleteLastField, finishAttempt, checkWinLostGame } = useUpdateStates()
 
   const handleKeyPress = (e) => {
-    if (dictionary[country].length === wordsPlayed.length) {
-      dispatchOptions({ type: UPDATE_WARN_MODAL })
+    if (wordsPlayed.length >= dictionary[country].length) {
+      dispatchGameInfo({ type: UPDATE_WARN_MODAL })
       return
     }
 
     if (endGameModal || warnModal) return
-
     const answersCopy = structuredClone(answers)
-    const LAST_ANSWERS_INDEX = answersCopy.length - 1
+    const LAST_ATTEMPT = answersCopy.length - 1
+    const LAST_FIELD = answersCopy[0].length - 1
+    // console.log(LAST_ATTEMPT)
     const isCompleted = checkIfTheAttempIsCompleted({ arr: answersCopy, index: currentAttempt })
     const isWinner = checkForWin({ userWord: answersCopy[currentAttempt], wordToGuess: wordToGuess.word })
 
     // check for winner or lost game
-    if ((e.keyCode === 13 && isWinner) || (currentAttempt === LAST_ANSWERS_INDEX && isCompleted && e.keyCode === 13)) {
+    if ((e.keyCode === 13 && isWinner) || (currentAttempt === LAST_ATTEMPT && isCompleted && e.keyCode === 13)) {
       checkWinLostGame({ isUserWinner: isWinner })
     }
 
@@ -58,7 +57,7 @@ export function useBoardLogic () {
     }
 
     // fiels complete
-    if (currentField > LAST_ANSWERS_INDEX && e.key.length === 1) {
+    if (currentField > LAST_FIELD && e.key.length === 1) {
       errorNotification({ errorMsg: 'Todos los campos completos' })
       return
     }
@@ -68,33 +67,13 @@ export function useBoardLogic () {
     setNewLetter({ answersCopy, currentLetter: e.key.toLowerCase() })
   }
 
+  // type a letter
   useEffect(() => {
     window.document.body.addEventListener('keydown', handleKeyPress)
 
     return () =>
       window.document.body.removeEventListener('keydown', handleKeyPress)
   })
-
-  useEffect(() => {
-    const newWord = getNewWord({ wordsList: wordsPlayed, country })
-
-    if (newWord === undefined) return
-
-    dispatch({ type: UPDATE_WORD, payload: newWord })
-    dispatchOptions({ type: UPDATE_WORDS_PLAYED, payload: newWord })
-  }, [generateNewWord])
-
-  useEffect(() => {
-    window.localStorage.setItem('country', country)
-    const matchStorage = JSON.parse(localStorage.getItem('savedMatch'))
-
-    if (matchStorage) {
-      setAnswers(matchStorage.savedAnswers)
-      dispatch({ type: SAVE_ATTEMPT_STORAGE, payload: matchStorage.savedAttempt })
-      dispatch({ type: SAVE_FIELD_STORAGE, payload: matchStorage.savedField })
-      dispatch({ type: UPDATE_WORD, payload: matchStorage.savedWord })
-    }
-  }, [])
 
   return { answers }
 }
