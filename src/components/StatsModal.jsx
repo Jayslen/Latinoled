@@ -4,7 +4,7 @@ import { useContext } from 'react'
 import { UserGameData } from '../context/userGameDataContext'
 
 export function StatsModal () {
-  const { state: { maxStreak, winRate, tries } } = useContext(UserGameData)
+  const { userData: { maxStreak, winRate, tries } } = useContext(UserGameData)
   return (
     <motion.div
       initial={'hidden'}
