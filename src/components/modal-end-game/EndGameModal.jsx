@@ -1,16 +1,16 @@
 import { useContext, useEffect } from 'react'
 import { UserGameData } from '../../context/userGameDataContext'
-import { WinGameData } from './WinGameText'
-import { LostGameData } from './LostGameText'
-import { MiniBoard } from './MiniBoard'
+import { EndGameInfo } from './EndGameInfo'
+import { MiniBoard } from '../MiniBoard'
 import { Backdrop } from '../Backdrop'
 
-export function GameMoldal ({ resetAttempt, isWinner, attempt, board, updateStreak }) {
-  const { state: { wordToGuess } } = useContext(UserGameData)
+export function GameMoldal ({ resetAttempt, isWinner, board }) {
+  const { userData: { wordToGuess } } = useContext(UserGameData)
+  const title = isWinner ? 'Bien Hecho' : 'Haz Fallado'
+
   const handleKeyPress = (e) => {
     if (e.keyCode === 13) {
       resetAttempt()
-      updateStreak({ isUserWinner: isWinner })
     }
   }
 
@@ -24,26 +24,15 @@ export function GameMoldal ({ resetAttempt, isWinner, attempt, board, updateStre
 
   return (
     <Backdrop>
-        {isWinner
-          ? (
-          <WinGameData
-            word={wordToGuess.word}
-            meaning={wordToGuess.meaning}
-            attempt={attempt}
-          />
-            )
-          : (
-          <LostGameData word={wordToGuess.word} meaning={wordToGuess.meaning} />
-            )}
+       <EndGameInfo word={wordToGuess.word} meaning={wordToGuess.meaning} title={title} />
+      <MiniBoard board={board} />
 
-        <MiniBoard board={board} />
-
-        <button
-          className="bg-[#212529] text-white px-2 py-4 rounded-full hover:bg-[#343A40] transition-colors font-bold"
-          onClick={resetAttempt}
-        >
-          Empezar nuevo intento
-        </button>
+      <button
+        className="bg-[#212529] text-white px-2 py-4 rounded-full hover:bg-[#343A40] transition-colors font-bold"
+        onClick={resetAttempt}
+      >
+        Empezar nuevo intento
+      </button>
     </Backdrop>
   )
 }

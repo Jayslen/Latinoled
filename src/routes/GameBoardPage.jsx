@@ -12,31 +12,31 @@ import { useUpdateStates } from '../hook/useUpdateGloblaStates'
 export function GameBoard () {
   const { answers } = useContext(UserAnswersContext)
   const { gameInfo: { endGameModal, isUserWinner, warnModal } } = useContext(GameData)
-  const { state: { currentAttempt, streak } } = useContext(UserGameData)
-  const { clearWordsPlayed, resetAttempt, updateStreak } = useUpdateStates()
+  const { userData: { currentAttempt, streak } } = useContext(UserGameData)
+  const { clearWordsPlayed, resetAttempt } = useUpdateStates()
 
   const miniBoard = answers.slice(0, currentAttempt)
   return (
     <>
-      <main className="flex justify-center dark:text-white">
+      <main className="flex justify-center dark:text-white font-Poppins">
         <section className="flex flex-col gap-2 w-[310px] px-4 sm:w-[350px] sm:p-0">
-              <span className='font-bold text-lg italic'>Racha : {streak}</span>
-              <Board />
-              <Keyboard />
+            <span className="font-bold text-lg italic">Racha : {streak}</span>
+          <Board />
+          <Keyboard />
         </section>
+
+        <AnimatePresence>
+          {endGameModal && (
+            <GameMoldal
+              resetAttempt={resetAttempt}
+              isWinner={isUserWinner}
+              board={miniBoard}
+            />
+          )}
+          {warnModal && <WarnModal clear={clearWordsPlayed} />}
+        </AnimatePresence>
+
       </main>
-      <AnimatePresence>
-        {endGameModal && (
-          <GameMoldal
-            resetAttempt={resetAttempt}
-            isWinner={isUserWinner}
-            attempt={currentAttempt}
-            board={miniBoard}
-            updateStreak={updateStreak}
-          />
-        )}
-        {warnModal && <WarnModal clear={clearWordsPlayed} />}
-      </AnimatePresence>
     </>
   )
 }
