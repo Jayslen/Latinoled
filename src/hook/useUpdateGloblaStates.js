@@ -71,6 +71,7 @@ export function useUpdateStates () {
     setAnswers(initialAnswers())
     window.localStorage.setItem(`${country}-words-played`, JSON.stringify([]))
     succesNotification({ successMsg: 'Registro limpio' })
+    localStorage.savedMatch = null
   }
 
   const setNewLetter = ({ answersCopy, currentLetter }) => {
@@ -112,6 +113,7 @@ export function useUpdateStates () {
     setTimeout(() => {
       dispatchGameInfo({ type: UPDATE_ENDGAME_MODAL })
     }, 700)
+    localStorage.savedMatch = null
     isFirsRender.current = false
   }
 

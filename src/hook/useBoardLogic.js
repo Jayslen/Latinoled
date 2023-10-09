@@ -24,13 +24,13 @@ export function useBoardLogic () {
     const answersCopy = structuredClone(answers)
     const LAST_ATTEMPT = answersCopy.length - 1
     const LAST_FIELD = answersCopy[0].length - 1
-    // console.log(LAST_ATTEMPT)
     const isCompleted = checkIfTheAttempIsCompleted({ arr: answersCopy, index: currentAttempt })
     const isWinner = checkForWin({ userWord: answersCopy[currentAttempt], wordToGuess: wordToGuess.word })
 
     // check for winner or lost game
     if ((e.keyCode === 13 && isWinner) || (currentAttempt === LAST_ATTEMPT && isCompleted && e.keyCode === 13)) {
       checkWinLostGame({ isUserWinner: isWinner })
+      return
     }
 
     // finish one attepm

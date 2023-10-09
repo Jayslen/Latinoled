@@ -33,6 +33,7 @@ export function useVirtualKey () {
         isCompleted && currentLetter === 'enter')
     ) {
       checkWinLostGame({ isUserWinner: isWinner })
+      return
     }
 
     // finish one attepmt
