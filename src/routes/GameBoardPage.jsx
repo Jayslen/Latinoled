@@ -15,7 +15,7 @@ export function GameBoard () {
   const { userData: { currentAttempt, streak } } = useContext(UserGameData)
   const { clearWordsPlayed, resetAttempt } = useUpdateStates()
 
-  const miniBoard = answers.slice(0, currentAttempt)
+  const miniBoard = answers.slice(0, currentAttempt + 1)
   return (
     <>
       <main className="flex justify-center dark:text-white font-Poppins">
