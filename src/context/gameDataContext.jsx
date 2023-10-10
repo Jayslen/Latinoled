@@ -28,7 +28,7 @@ function reducer (state, action) {
   }
 
   if (type === UPDATE_WORDS_PLAYED) {
-    return { ...state, wordsPlayed: [...state.wordsPlayed, payload] }
+    return { ...state, wordsPlayed: payload }
   }
 
   if (type === CLEAR_WORDS_PLAYED) {

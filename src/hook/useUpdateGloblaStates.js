@@ -131,7 +131,7 @@ export function useUpdateStates () {
     if (newWord === undefined) return
 
     dispatchUserData({ type: UPDATE_WORD, payload: newWord })
-    dispatchGameInfo({ type: UPDATE_WORDS_PLAYED, payload: newWord })
+    dispatchGameInfo({ type: UPDATE_WORDS_PLAYED, payload: [...wordsPlayed, newWord] })
   }, [generateNewWord])
 
   // save stats in local storage
