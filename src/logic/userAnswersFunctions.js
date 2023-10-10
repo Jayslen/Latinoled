@@ -11,6 +11,7 @@ export const checkIfTheAttempIsCompleted = ({ arr, index }) => {
 }
 
 export const checkForWin = ({ wordToGuess, userWord }) => {
-  const word = getUserWord({ userWord })
-  return wordToGuess.toLowerCase() === word.join('').toLowerCase()
+  const word = getUserWord({ userWord }).join('').toLowerCase()
+  const currentGuessWord = wordToGuess.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+  return currentGuessWord === word
 }

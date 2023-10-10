@@ -7,15 +7,21 @@ import { getUserWord } from './userAnswersFunctions'
 
 export const findLettersPositions = ({ wordToGuess, attempt, answers }) => {
   const data = []
+  const currentGuessWord = wordToGuess
+    .join('')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .split('')
+
   const userWord = getUserWord({ userWord: answers[attempt] })
 
-  for (let i = 0; i < wordToGuess.length; i++) {
-    if (userWord[i] === wordToGuess[i]) {
+  for (let i = 0; i < currentGuessWord.length; i++) {
+    if (userWord[i] === currentGuessWord[i]) {
       data.push({
         letter: userWord[i],
         status: IS_SAME_POSITION
       })
-    } else if (wordToGuess.includes(userWord[i])) {
+    } else if (currentGuessWord.includes(userWord[i])) {
       data.push({
         letter: userWord[i],
         status: IS_INCLUDED
@@ -30,7 +36,9 @@ export const findLettersPositions = ({ wordToGuess, attempt, answers }) => {
 
   // delete repeat includes letters
   for (let i = 0; i < data.length; i++) {
-    const amount = wordToGuess.filter((item) => item === userWord[i]).length
+    const amount = currentGuessWord.filter(
+      (item) => item === userWord[i]
+    ).length
     const current = data.filter((item) => item.letter === userWord[i]).length
     const includes = data.filter(
       (item) => item.status === IS_SAME_POSITION && item.letter === userWord[i]
