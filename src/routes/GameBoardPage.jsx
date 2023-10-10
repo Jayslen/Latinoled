@@ -5,7 +5,7 @@ import { UserAnswersContext } from '../context/userAnswersContext'
 import { UserGameData } from '../context/userGameDataContext'
 import { GameData } from '../context/gameDataContext'
 import { AnimatePresence } from 'framer-motion'
-import { GameMoldal } from '../components/modal-end-game/EndGameModal'
+import { GameMoldal } from '../components/EndGameModal'
 import { WarnModal } from '../components/complete-words-modal/WarnModal'
 import { useUpdateStates } from '../hook/useUpdateGloblaStates'
 
