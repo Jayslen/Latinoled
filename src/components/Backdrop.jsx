@@ -12,7 +12,7 @@ export function Backdrop ({ children }) {
         initial={{ scale: 0.1, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.5, opacity: 0 }}
-        transition={{ duration: 1, type: 'spring' }}
+        transition={{ type: 'spring' }}
         className="bg-gradient-to-t from-rose-100 to-teal-100 w-full h-auto px-4 py-3 flex flex-col gap-2 rounded sm:w-96 relative"
       >
         {children}

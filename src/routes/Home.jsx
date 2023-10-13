@@ -7,13 +7,13 @@ import { homeModalData } from '../constants/MiniBoardData'
 export function Home () {
   return (
     <>
-      <main className="text-light-mode-text dark:text-dark-mode-text grid place-content-center text-center">
+      <main className="text-light-mode-text dark:text-dark-mode-text grid place-content-center text-center font-Poppins">
         <section className="flex flex-col items-center gap-2 max-w-xl">
           <motion.h1
             initial={{ scale: 0.2, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 0.3, type: 'spring' }}
-            className="text-4xl font-bold italic md:text-7xl"
+            className="text-4xl font-bold italic md:text-6xl"
           >
             Juega Latinoled
             <span className="block text-2xl pt-1 md:text-4xl ">El wordle latino</span>
@@ -25,7 +25,7 @@ export function Home () {
             alt=""
             className="w-16 h-16"
           />
-          <p className="text-md px-4 max-w-xl md:text-lg md:p-0 ">
+          <p className="px-4 text-base max-w-xl md:text-lg md:p-0">
             <strong>Latinoled</strong> es un emocionante juego de palabras
             inspirado en el popular juego Wordle, pero con un toque cultural que
             te permite sumergirte en la riqueza lingüística de América Latina.
@@ -35,6 +35,7 @@ export function Home () {
           </p>
 
           <Example board={homeModalData} />
+
           <FlagsContainer/>
 
           <motion.div

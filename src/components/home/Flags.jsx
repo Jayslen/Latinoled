@@ -7,7 +7,7 @@ import { errorNotification, succesNotification } from '../notifications/tostifyN
 import 'react-toastify/dist/ReactToastify.css'
 
 export function FlagsContainer () {
-  const { userData: { country }, dispatchUserData } = useContext(UserGameData)
+  const { userData: { country: userCountry }, dispatchUserData } = useContext(UserGameData)
 
   return (
     <div className="w-[320px] flex flex-wrap gap-2 justify-center">
@@ -34,6 +34,7 @@ export function FlagsContainer () {
             onClick={() => {
               if (available) {
                 dispatchUserData({ payload: country, type: UPDATE_COUNTRY })
+                window.localStorage.setItem('country', country)
                 succesNotification({ successMsg: `Pais selecionado ${country}` })
               } else {
                 errorNotification({ errorMsg: `${country} estara disponible proximamente` })
@@ -42,8 +43,8 @@ export function FlagsContainer () {
           />
         )
       })}
-      <p>
-        Pais seleccionado <strong className="capitalize">{country}</strong>
+      <p className='font-sans'>
+        Pais seleccionado <strong className="capitalize">{userCountry}</strong>
       </p>
 
     </div>
