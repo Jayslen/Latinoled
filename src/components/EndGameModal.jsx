@@ -33,7 +33,7 @@ export function GameMoldal ({ resetAttempt, isWinner, board }) {
         <p className="text-lg">{description}</p>
         <div className='flex justify-center items-center gap-1 mb-1.5'>
           <span className="font-bold text-3xl capitalize sm:text-4xl"> {wordToGuess.word}</span>
-          <img src={image} alt="" className='w-10' />
+          <img src={image} alt={`Bandera de ${country}`} className='w-10' />
         </div>
 
         <details className="border-[1px] border-[#aaa] rounded px-[0.5em] max-w-xs m-auto open:p-1 group">
