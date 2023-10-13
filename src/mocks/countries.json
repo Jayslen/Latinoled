@@ -7,12 +7,12 @@
   {
     "country": "colombia",
     "image": "https://i.ibb.co/RzKvNn7/colombia.png",
-    "available": false
+    "available": true
   },
   {
     "country": "uruguay",
     "image": "https://i.ibb.co/3mH1pNB/uruguay.png",
-    "available": false
+    "available": true
   },
   {
     "country": "mexico",

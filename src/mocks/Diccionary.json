@@ -2,15 +2,15 @@
   "republica dominicana": [
     {
       "word": "mangu",
-      "meaning": "¡Plato típico! Puedes encontrar este puré de plátano hervido en los bufets de República Dominicana."
+      "meaning": "Es un puré suave a base de plátano verde, es el componente más típico del desayuno dominicano y uno de nuestros platos más populares."
     },
     {
       "word": "rulay",
-      "meaning": "Sentirse muy bien. Tu amigo te pregunta: ¿cómo estás? tú le contestas: ¡Me siento rulay!"
+      "meaning": "Es sentirse muy bien o andar en la calle de fiesta como loco, divertirse en grande tomando mucho alcohol."
     },
     {
       "word": "manso",
-      "meaning": "Estar muy tranquilo/relajado"
+      "meaning": "Es estar muy tranquilo/relajado"
     },
     {
       "word": "vaina",
@@ -23,10 +23,6 @@
     {
       "word": "banda",
       "meaning": "Darle banda a una persona significa dejar de prestarle atencion."
-    },
-    {
-      "word": "heavy",
-      "meaning": "Algo que esta bien, cool."
     },
     {
       "word": "apero",
@@ -42,11 +38,265 @@
     },
     {
       "word": "mambo",
-      "meaning": ""
+      "meaning": "Tipo de música y baile caribeño."
     },
     {
       "word": "manin",
-      "meaning": "Como se le puede llamar a un amigo"
+      "meaning": "Es una forma la cual se le puede llamar a un amigo"
+    },
+    {
+      "word": "boche",
+      "meaning": "Se utiliza para referirse a un regaño."
+    },
+    {
+      "word": "jarto",
+      "meaning": "Harto, cansado, hastiado, también se refiere a tener el estomago muy lleno a causa de que comiste mucho."
+    },
+    {
+      "word": "pique",
+      "meaning": "Coger pique, es similar a enojarte."
+    },
+    {
+      "word": "teteo",
+      "meaning": "Palabra que se utiliza para referirse a una fiesta."
+    },
+    {
+      "word": "mofle",
+      "meaning": "Silenciador del tubo de escape de un vehiculo."
+    },
+    {
+      "word": "chulo",
+      "meaning": "Persona que es atractiva y elegante."
+    },
+    {
+      "word": "chepa",
+      "meaning": "Golpe de suerte."
+    },
+    {
+      "word": "colín",
+      "meaning": "Manera en la que se le suele llamar a un machete."
+    },
+    {
+      "word": "chele",
+      "meaning": "Como se le solia llamar a los centavos."
+    },
+    {
+      "word": "motor",
+      "meaning": "Es una moto o motocicleta."
+    },
+    {
+      "word": "guapo",
+      "meaning": "Persona que está enfadada."
+    },
+    {
+      "word": "monte",
+      "meaning": "Tierra inculta cubierta de árboles, arbustos, matas o hierba."
+    },
+    {
+      "word": "tumbe",
+      "meaning": "Sinónimo de estafa o de robo."
+    },
+    {
+      "word": "tapon",
+      "meaning": "Situación en la que todo el tráfico está parado o muy lento."
+    },
+    {
+      "word": "grasa",
+      "meaning": "Algo de buena calidad, ejm: Esos tenis estan grasa."
+    },
+    {
+      "word": "pinta",
+      "meaning": "La ropa, el vestuario de una persona."
+    },
+    {
+      "word": "acera",
+      "meaning": "Es como se le llama a la calzada."
+    },
+    {
+      "word": "grajo",
+      "meaning": "Mal olor causado por el sudor de las axilas. A las axilas también se le llaman Sobacos en Rep. Dominicana."
+    },
+    {
+      "word": "guira",
+      "meaning": "Instrumento de percusión. La güira dominicana es comúnmente hecha de hojalata perforada, lo cual le da un sonido más fuerte."
+    },
+    {
+      "word": "guira",
+      "meaning": "Instrumento de percusión. La güira dominicana es comúnmente hecha de hojalata perforada, lo cual le da un sonido más fuerte."
+    },
+    {
+      "word": "joder",
+      "meaning": "Molestar a alguien."
+    },
+    {
+      "word": "pilón",
+      "meaning": "Objeto utilizado para triturar café y también condimentos como ajo y cebolla."
+    },
+    {
+      "word": "suape",
+      "meaning": "Utencilio utilizado para limpiar el suelo."
+    },
+    {
+      "word": "jipío",
+      "meaning": "Llorar con sollozos."
+    }
+  ],
+  "colombia": [
+    {
+      "word": "locha",
+      "meaning": "Hacer pereza o nada en particular."
+    },
+    {
+      "word": "gamín",
+      "meaning": "Para referirse a gente muy pobre que se dedica a la delincuencia o al consumo de drogas."
+    },
+    {
+      "word": "polas",
+      "meaning": "Pola es una palabra usada para referirse a una cerveza en un contexto de amigos."
+    },
+    {
+      "word": "toque",
+      "meaning": "Se refiere a un concierto dado por una banda pequeña generalmente en locaciones a su vez pequeñas."
+    },
+    {
+      "word": "lucas",
+      "meaning": "Es el nombre para denominar a la moneda nacional colombiana que es el peso."
+    },
+    {
+      "word": "chino",
+      "meaning": "Es una palabra usada para hacer referencia a un niño pequeño."
+    },
+    {
+      "word": "paila",
+      "meaning": "Es algo similar a “Que cagada” Ej: “Paila hermano, ya se lo llevaron\"."
+    },
+    {
+      "word": "tombo",
+      "meaning": "Policía."
+    },
+    {
+      "word": "cucho",
+      "meaning": "Persona viejo o vieja (en el sentido de edad de la palabra)."
+    },
+    {
+      "word": "mamon",
+      "meaning": "Es una persona pesada que no le agrada a nadie."
+    },
+    {
+      "word": "picho",
+      "meaning": "Persona en mal estado."
+    },
+    {
+      "word": "toche",
+      "meaning": "Persona idiota."
+    },
+    {
+      "word": "guaro",
+      "meaning": "Es la bebida alcohólica nacional por excelencia, más conocida como agua ardiente."
+    },
+    {
+      "word": "parce",
+      "meaning": "Amigo/a."
+    },
+    {
+      "word": "grilla",
+      "meaning": "Mujer excéntrica, voluptuosa y llamativa."
+    },
+    {
+      "word": "tinto",
+      "meaning": "Café negro."
+    },
+    {
+      "word": "choro",
+      "meaning": "Ladrón, delincuente."
+    },
+    {
+      "word": "buque",
+      "meaning": "Mentira."
+    },
+    {
+      "word": "chaza",
+      "meaning": "Cabina ambulante donde se venden dulces y cigarrillos."
+    },
+    {
+      "word": "paisa",
+      "meaning": "Es una denominación geosocioantropológica para referirse a los habitantes de las regiones colombianas de gran parte de Antioquia, Caldas, Risaralda, Quindío, noroccidente del Tolima y el Oriente y Norte del Valle del Cauca."
+    },
+    {
+      "word": "farra",
+      "meaning": "Expresion que se usa para referirse a una fiesta."
+    },
+    {
+      "word": "cruce",
+      "meaning": "Se utiliza para referirse a un negocio, algún tipo de arreglo, o favor."
+    },
+    {
+      "word": "cucha",
+      "meaning": "Es utilizada para referirse a los padres."
+    }
+  ],
+  "uruguay": [
+    {
+      "word": "barra",
+      "meaning": "Grupo de amigos."
+    },
+    {
+      "word": "mango",
+      "meaning": "Manera para referirse al dinero."
+    },
+    {
+      "word": "botón",
+      "meaning": "Manera despectiva de llamar al policía."
+    },
+    {
+      "word": "chiva",
+      "meaning": "Sinónimo de bicicleta."
+    },
+    {
+      "word": "bondi",
+      "meaning": "Sinónimo de autobús."
+    },
+    {
+      "word": "cante",
+      "meaning": "Es como se llaman a los “ranchos” de los barrios pobres uruguayos."
+    },
+    {
+      "word": "cebar",
+      "meaning": "Verter agua caliente en el mate(El mate es una bebida popular en la mayor parte de los países de América del Sur y originaria de Argentina, Paraguay y Uruguay.)."
+    },
+    {
+      "word": "minga",
+      "meaning": "Reunión de amigos para hacer algo juntos."
+    },
+    {
+      "word": "pique",
+      "meaning": "Carrera corta."
+    },
+    {
+      "word": "zapar",
+      "meaning": "Beber alcohol en execeso."
+    },
+    {
+      "word": "cheto",
+      "meaning": "Persona presumido, ostentoso."
+    }
+  ],
+  "mexico": [
+    {
+      "word": "chavo",
+      "meaning": "Se le dice a aquel que es joven/adolescente."
+    },
+    {
+      "word": "gacho",
+      "meaning": "Persona feo/a."
+    },
+    {
+      "word": "cruda",
+      "meaning": "La cruda es la resaca por una borrachera del día anterior."
+    },
+    {
+      "word": "torta",
+      "meaning": "Palabra que se usa para referirse a un bocadillo o a un sandwich."
     }
   ]
 }
