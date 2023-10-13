@@ -1,6 +1,14 @@
 Hola este es un proyecto creado por mi Jayslen Rojas Serrano.
 Se que el codigo no es el mejor, soy alguien que esta aprendiendo a programar, y me hizo mucha ilusion poder hacerlo.
-El proyecto es un wordle pero con palabras dominicanas.
+El proyecto es un wordle pero con palabras latinoamericanas, donde podras seleccionar de que pais quieres adivinar palabras.
+
+### Paises disponibles
+-Republica Dominicana.
+
+### Paises disponibles proximamente.
+-Urugay.
+-Colombia.
+-Mexico.
  
 ### Para levantar el proyecto:
 ```
