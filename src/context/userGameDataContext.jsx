@@ -19,9 +19,10 @@ import {
 } from '../constants/reducerTypes'
 
 export const UserGameData = createContext()
+const countryStorage = localStorage.getItem('country')
 const initialState = {
   wordToGuess: '',
-  country: 'republica dominicana',
+  country: countryStorage || 'republica dominicana',
   currentAttempt: 0,
   currentField: 0,
   streak: 0,
