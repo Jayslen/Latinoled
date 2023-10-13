@@ -2,14 +2,11 @@ import { createContext, useReducer } from 'react'
 import { CLEAR_WORDS_PLAYED, UPDATE_ENDGAME_MODAL, UPDATE_IS_WINNER, UPDATE_WARN_MODAL, UPDATE_WORDS_PLAYED } from '../constants/gameOptionsReducerTypes'
 
 export const GameData = createContext()
-const country = window.localStorage.getItem('country')
-const wordsInStorage = JSON.parse(localStorage.getItem(`${country}-words-played`))
-
 const initialState = {
   endGameModal: false,
   warnModal: false,
   isUserWinner: false,
-  wordsPlayed: wordsInStorage?.length > 0 ? wordsInStorage : []
+  wordsPlayed: []
 }
 
 function reducer (state, action) {

@@ -21,6 +21,7 @@ export function useBoardLogic () {
     }
 
     if (endGameModal || warnModal) return
+
     const answersCopy = structuredClone(answers)
     const LAST_ATTEMPT = answersCopy.length - 1
     const LAST_FIELD = answersCopy[0].length - 1
