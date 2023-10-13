@@ -37,7 +37,6 @@ export function useUpdateStates () {
   const { gameInfo: { wordsPlayed, isUserWinner }, dispatchGameInfo } = useContext(GameData)
   const isFirsRender = useRef(true)
 
-  // helpers
   const updateStats = () => {
     if (isUserWinner) {
       dispatchUserData({ type: UPDATE_STREAK })
@@ -80,7 +79,7 @@ export function useUpdateStates () {
     dispatchUserData({ type: RESET_NEXT_FIELD })
     dispatchUserData({ type: RESET_ATTEMPT })
     setAnswers(initialAnswers())
-    window.localStorage.setItem(`${country}-words-played`, JSON.stringify([]))
+    window.localStorage.setItem(`${country}-words-played`, JSON.stringify(null))
     succesNotification({ successMsg: 'Registro limpio' })
     localStorage.savedMatch = null
   }
@@ -114,6 +113,7 @@ export function useUpdateStates () {
   }
 
   const checkWinLostGame = ({ isUserWinner, answersCopy }) => {
+    dispatchGameInfo({ type: UPDATE_WORDS_PLAYED, payload: [...wordsPlayed, wordToGuess] })
     lettersPosition(answersCopy)
     dispatchGameInfo({ type: UPDATE_IS_WINNER, payload: isUserWinner })
     setTimeout(() => {
@@ -131,7 +131,6 @@ export function useUpdateStates () {
     if (newWord === undefined) return
 
     dispatchUserData({ type: UPDATE_WORD, payload: newWord })
-    dispatchGameInfo({ type: UPDATE_WORDS_PLAYED, payload: [...wordsPlayed, newWord] })
   }, [generateNewWord])
 
   // save stats in local storage
@@ -145,9 +144,9 @@ export function useUpdateStates () {
   // update match and stats if there are data in storage
 
   useEffect(() => {
-    window.localStorage.setItem('country', country)
     const matchStorage = JSON.parse(localStorage.getItem('savedMatch'))
     const savedStats = JSON.parse(localStorage.getItem('stats'))
+    const wordsInStorage = JSON.parse(localStorage.getItem(`${country}-words-played`))
 
     if (matchStorage) {
       setAnswers(matchStorage.savedAnswers)
@@ -165,6 +164,8 @@ export function useUpdateStates () {
       dispatchUserData({ type: UPDATE_WINS_STORAGE, payload: winRate })
       dispatchUserData({ type: UPDATE_MAX_STREAK, payload: maxStreak })
     }
+
+    dispatchGameInfo({ type: UPDATE_WORDS_PLAYED, payload: (wordsInStorage || []) })
   }, [])
 
   return {
