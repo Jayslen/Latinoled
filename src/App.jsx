@@ -41,7 +41,7 @@ function App () {
             theme="dark"
           />
           <RouterProvider router={router} />
-          <div className="absolute bottom-0 text-light-mode-text dark:text-dark-mode-text text-sm p-2 font-bold">
+          <div className="absolute bottom-0 text-light-mode-text dark:text-dark-mode-text text-sm p-2 font-bold -z-20">
             <p>Test Version 1.1</p>
             <p>Created by Jayslen Rojas</p>
           </div>
