@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import { GameBoard } from './routes/GameBoardPage'
 import { Home } from './routes/Home'
 import { Header } from './components/Header'
@@ -25,29 +26,32 @@ function App () {
     }
   ])
   return (
-    <GameDataProvider>
-      <UserGameDataProvider>
-        <UserAnswerProvider>
-          <ToastContainer
-            position="top-right"
-            autoClose={1000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss={false}
-            draggable
-            pauseOnHover
-            theme="dark"
-          />
-          <RouterProvider router={router} />
-          <div className="absolute bottom-0 text-light-mode-text dark:text-dark-mode-text text-sm p-2 font-bold -z-20">
-            <p>Test Version 1.1</p>
-            <p>Created by Jayslen Rojas</p>
-          </div>
-        </UserAnswerProvider>
-      </UserGameDataProvider>
-    </GameDataProvider>
+    <>
+      <GameDataProvider>
+        <UserGameDataProvider>
+          <UserAnswerProvider>
+            <ToastContainer
+              position="top-right"
+              autoClose={1000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss={false}
+              draggable
+              pauseOnHover
+              theme="dark"
+            />
+            <RouterProvider router={router} />
+            <div className="absolute bottom-0 text-light-mode-text dark:text-dark-mode-text text-sm p-2 font-bold -z-20">
+              <p>Test Version 1.1</p>
+              <p>Created by Jayslen Rojas</p>
+            </div>
+          </UserAnswerProvider>
+        </UserGameDataProvider>
+      </GameDataProvider>
+      <SpeedInsights/>
+    </>
   )
 }
 
