@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import { GameBoard } from './routes/GameBoardPage'
 import { Home } from './routes/Home'
 import { Header } from './components/Header'
@@ -49,6 +50,7 @@ function App () {
           </UserAnswerProvider>
         </UserGameDataProvider>
       </GameDataProvider>
+      <SpeedInsights/>
     </>
   )
 }
