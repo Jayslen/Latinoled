@@ -11,7 +11,7 @@ export function StatsModal () {
       animate={'visible'}
       exit={'exit'}
       variants={headerModalsAnimation}
-      className="bg-[#DEE2E6] dark:shadow-none shadow-2xl shadow-black text-light-mode-text w-full h-auto px-4 py-2 rounded-lg absolute right-0 z-10 sm:right-0 top-12 sm:w-80 sm:mr-2"
+      className="bg-[#DEE2E6] dark:shadow-none shadow-2xl shadow-black text-light-mode-text w-full h-auto px-4 py-2 rounded-md absolute right-0 z-10 sm:right-0 top-12 sm:w-80 sm:mr-2"
     >
       <ul className="flex justify-center gap-4">
         <li className="flex flex-col items-center">

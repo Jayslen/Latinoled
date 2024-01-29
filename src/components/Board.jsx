@@ -1,4 +1,8 @@
-import { IS_INCLUDED, IS_NOT_INCLUDED, IS_SAME_POSITION } from '../constants/positionsIndex'
+import {
+  IS_INCLUDED,
+  IS_NOT_INCLUDED,
+  IS_SAME_POSITION
+} from '../constants/positionsIndex'
 import { useBoardLogic } from '../hook/useBoardLogic'
 
 export function Board () {
@@ -9,13 +13,10 @@ export function Board () {
       <section className="h-80 w-full flex flex-col items-center gap-2 sm:h-[400px]">
         {answers.map((rows, indexRow) => {
           return (
-            <article
-              key={indexRow}
-              className="grid grid-cols-5 gap-2 w-full h-full"
-            >
+            <ul key={indexRow} className="grid grid-cols-5 gap-2 w-full h-full">
               {rows.map((data, index) => {
                 return (
-                  <div
+                  <li
                     key={index}
                     className={`text-light-mode-text w-full h-full border-[#3a3a3c] flex justify-center items-center font-bold text-2xl uppercase rounded-md border-2 transition-colors duration-500  dark:text-dark-mode-text ${
                       data.status === IS_SAME_POSITION
@@ -28,13 +29,12 @@ export function Board () {
                     }`}
                   >
                     {data?.letter}
-                  </div>
+                  </li>
                 )
               })}
-            </article>
+            </ul>
           )
         })}
-
       </section>
     </>
   )
